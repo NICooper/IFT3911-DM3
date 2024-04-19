@@ -8,6 +8,7 @@ public class Client implements ClientRouteVerification, Observer, ClientReservat
 	private String passportNumber;
 	private Reservation reservation;
 	private Seat seat;
+	private ClientView clientView;
 
 	public void seatEvent() {
 		// TODO - implement Client.seatEvent

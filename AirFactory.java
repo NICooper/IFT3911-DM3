@@ -8,12 +8,14 @@ public class AirFactory extends TravelFactory {
 	}
 
 	public AirFactory getInstance() {
+		if(instance == null){
+			return new AirFactory();
+		}
 		return this.instance;
 	}
 
 	private void AirCreator() {
-		// TODO - implement AirFactory.AirCreator
-		throw new UnsupportedOperationException();
+		this.instance = this;
 	}
 
 	protected Port createPort() {

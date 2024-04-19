@@ -8,12 +8,14 @@ public class SeaFactory extends TravelFactory {
 	}
 
 	public SeaFactory getInstance() {
+		if(instance == null){
+			return new SeaFactory();
+		}
 		return this.instance;
 	}
 
 	private SeaFactory() {
-		// TODO - implement SeaFactory.SeaFactory
-		throw new UnsupportedOperationException();
+		this.instance = this;
 	}
 
 	protected Port createPort() {

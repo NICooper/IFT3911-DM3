@@ -8,12 +8,14 @@ public class TrainFactory extends TravelFactory {
 	}
 
 	public TrainFactory getInstance() {
+		if(instance == null) {
+			return new TrainFactory();
+		}
 		return this.instance;
 	}
 
-	private void TrainCreator() {
-		// TODO - implement TrainFactory.TrainCreator
-		throw new UnsupportedOperationException();
+	private TrainFactory() {
+		this.instance = this;
 	}
 
 	protected Port createPort() {
