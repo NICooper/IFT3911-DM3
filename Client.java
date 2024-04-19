@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Client implements ClientRouteVerification, Observer, ClientReservation {
@@ -9,6 +10,16 @@ public class Client implements ClientRouteVerification, Observer, ClientReservat
 	private Reservation reservation;
 	private Seat seat;
 	private ClientView clientView;
+	private ArrayList<Object>[] news;
+
+	public ArrayList<Object>[] getNews() {
+		return news;
+	}
+
+	public void setNews(ArrayList<Object>[] news) {
+		this.news = news;
+	}
+
 
 	public void seatEvent() {
 		// TODO - implement Client.seatEvent
@@ -31,7 +42,7 @@ public class Client implements ClientRouteVerification, Observer, ClientReservat
 	}
 
 	@Override
-	public void update() {
-
+	public void update(ArrayList<Object>[] news) {
+		this.setNews(news);
 	}
 }
