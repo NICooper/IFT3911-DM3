@@ -5,6 +5,15 @@ public abstract class Seat {
 	private String number;
 	private Float price;
 	private Reservation reservation;
+	private SeatState currentState;
+
+	public SeatState getCurrentState() {
+		return currentState;
+	}
+
+	public void setCurrentState(SeatState currentState) {
+		this.currentState = currentState;
+	}
 
 	public boolean getIsAvailable() {
 		// TODO - implement Seat.getIsAvailable

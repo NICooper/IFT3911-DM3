@@ -4,12 +4,6 @@ public abstract class Vehicle {
 	private String model;
 	private Company company;
 
-	public Vehicle(String vehicleId, String model, Company company) {
-		this.vehicleId = vehicleId;
-		this.model = model;
-		this.company = company;
-	}
-
 	public String getVehicleId() {
 		return this.vehicleId;
 	}

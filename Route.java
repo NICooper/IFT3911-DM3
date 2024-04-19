@@ -11,6 +11,31 @@ public abstract class Route {
 	private Float durationHours;
 	private Company company;
 	private Port departurePort;
+
+	public Vehicle getVehicle() {
+		return vehicle;
+	}
+
+	public void setVehicle(Vehicle vehicle) {
+		this.vehicle = vehicle;
+	}
+
+	public Port getDeparturePort() {
+		return departurePort;
+	}
+
+	public void setDeparturePort(Port departurePort) {
+		this.departurePort = departurePort;
+	}
+
+	public Port getArrivalPort() {
+		return arrivalPort;
+	}
+
+	public void setArrivalPort(Port arrivalPort) {
+		this.arrivalPort = arrivalPort;
+	}
+
 	private Port arrivalPort;
 	private ArrayList<Port> intermidaryPorts;
 
