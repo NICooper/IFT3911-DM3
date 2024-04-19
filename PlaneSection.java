@@ -1,9 +1,18 @@
 public class PlaneSection extends Section {
 
+	private float price;
 	private int rows;
 	private int columns;
 	private PlaneSectionType sectionType;
 	private Repartition repartition;
+
+	public PlaneSection(float price, int rows, int columns, Repartition repartition,PlaneSectionType sectionType) {
+		this.price = price;
+		this.rows = rows;
+		this.columns = columns;
+		this.sectionType = sectionType;
+		this.repartition = repartition;
+	}
 
 	public int getRows() {
 		return this.rows;

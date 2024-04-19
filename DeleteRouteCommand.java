@@ -1,14 +1,12 @@
 public class DeleteRouteCommand {
 
-	private String id;
+	private Application application;
+	private Route route;
 
-	/**
-	 * 
-	 * @param id
-	 */
-	public void deleteRoute(String id) {
-		// TODO - implement DeleteRouteCommand.deleteRoute
-		throw new UnsupportedOperationException();
+
+	public DeleteRouteCommand(Application application, Route route) {
+		this.application = application;
+		this.route = route;
 	}
 
 	public void undo() {
@@ -17,8 +15,7 @@ public class DeleteRouteCommand {
 	}
 
 	public void execute() {
-		// TODO - implement DeleteRouteCommand.execute
-		throw new UnsupportedOperationException();
+		application.deleteRoute(this.route);
 	}
 
 }

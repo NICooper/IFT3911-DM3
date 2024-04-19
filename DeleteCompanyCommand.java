@@ -1,14 +1,11 @@
 public class DeleteCompanyCommand {
 
-	private String id;
+	private Company company;
+	private Application application;
 
-	/**
-	 * 
-	 * @param id
-	 */
-	public void deleteCompany(String id) {
-		// TODO - implement DeleteCompanyCommand.deleteCompany
-		throw new UnsupportedOperationException();
+	public DeleteCompanyCommand(Company company, Application application) {
+		this.company = company;
+		this.application = application;
 	}
 
 	public void undo() {
@@ -17,8 +14,7 @@ public class DeleteCompanyCommand {
 	}
 
 	public void execute() {
-		// TODO - implement DeleteCompanyCommand.execute
-		throw new UnsupportedOperationException();
+		application.deleteCompany(this.company);
 	}
 
 }

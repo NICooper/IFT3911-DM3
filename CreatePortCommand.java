@@ -3,16 +3,19 @@ public class CreatePortCommand {
 	private TravelFactory travelFactory;
 	private String id;
 	private String city;
+	private Company company;
 
 	/**
-	 * 
+	 *
 	 * @param travelFactory
 	 * @param id
 	 * @param city
 	 */
-	public void createPort(TravelFactory travelFactory, String id, String city) {
-		// TODO - implement CreatePortCommand.createPort
-		throw new UnsupportedOperationException();
+	public CreatePortCommand(TravelFactory travelFactory, String id, String city, Company company) {
+		this.travelFactory = travelFactory;
+		this.id = id;
+		this.city = city;
+		this.company = company;
 	}
 
 	public void undo() {
@@ -21,8 +24,10 @@ public class CreatePortCommand {
 	}
 
 	public void execute() {
-		// TODO - implement CreatePortCommand.execute
-		throw new UnsupportedOperationException();
+		Port port = travelFactory.createPort();
+		port.setPortId(this.id);
+		port.setCity(this.city);
+		port.setCompany(this.company);
 	}
 
 }

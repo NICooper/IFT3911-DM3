@@ -4,15 +4,9 @@ public class CreateVehicleCommand implements Command {
 	private String id;
 	private String model;
 
-	/**
-	 * 
-	 * @param travelFactory
-	 * @param id
-	 * @param model
-	 */
-	public Vehicle createVehicle(TravelFactory travelFactory, String id, String model) {
-		// TODO - implement CreateVehicleCommand.createVehicle
-		throw new UnsupportedOperationException();
+	public CreateVehicleCommand(String id, String model) {
+		this.id = id;
+		this.model = model;
 	}
 
 	public void undo() {
@@ -21,8 +15,9 @@ public class CreateVehicleCommand implements Command {
 	}
 
 	public void execute() {
-		// TODO - implement CreateVehicleCommand.execute
-		throw new UnsupportedOperationException();
+		Vehicle vehicle = travelFactory.createVehicle();
+		vehicle.setVehicleId(this.id);
+		vehicle.setModel(this.model);
 	}
 
 }

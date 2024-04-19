@@ -10,9 +10,10 @@ public class CreateCompanyCommand {
 	 * @param id
 	 * @param price
 	 */
-	public Company createCompany(TravelFactory travelFactory, String id, Float price) {
-		// TODO - implement CreateCompanyCommand.createCompany
-		throw new UnsupportedOperationException();
+	public CreateCompanyCommand(TravelFactory travelFactory, String id, Float price) {
+		this.travelFactory = travelFactory;
+		this.id = id;
+		this.price = price;
 	}
 
 	public void undo() {
@@ -21,8 +22,9 @@ public class CreateCompanyCommand {
 	}
 
 	public void execute() {
-		// TODO - implement CreateCompanyCommand.execute
-		throw new UnsupportedOperationException();
+		Company company = travelFactory.createCompany();
+		company.setCompanyId(this.id);
+		company.setPrice(this.price);
 	}
 
 }

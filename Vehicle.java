@@ -1,8 +1,25 @@
+import java.util.ArrayList;
+
 public abstract class Vehicle {
 
 	private String vehicleId;
 	private String model;
 	private Company company;
+
+	private ArrayList<Section> sections;
+
+
+	public ArrayList<Section> getSections() {
+		return sections;
+	}
+
+	public void setSections(ArrayList<Section> sections) {
+		this.sections = sections;
+	}
+
+	public void addSection(Section section){
+		sections.add(section);
+	}
 
 	public String getVehicleId() {
 		return this.vehicleId;
@@ -40,4 +57,18 @@ public abstract class Vehicle {
 		this.company = company;
 	}
 
+	public void createBoatSection(Float pricePercentage, BoatSectionType sectionType, int cabinNumber) {
+		BoatSection b_section = new BoatSection(pricePercentage, sectionType, cabinNumber);
+		addSection(b_section);
+	}
+
+	public void createPlaneSection(Float pricePercentage, int rows, int columns, Repartition repartition, PlaneSectionType sectionType){
+		PlaneSection p_section = new PlaneSection(pricePercentage, rows, columns, repartition, sectionType);
+		addSection(p_section);
+	}
+
+	public void createTrainSection(Float pricePercentage, TrainSectionType sectionType, int rows, int columns) {
+		TrainSection t_section = new TrainSection(pricePercentage, sectionType, rows, columns);
+		addSection(t_section);
+	}
 }

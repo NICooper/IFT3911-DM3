@@ -1,8 +1,17 @@
 public class TrainSection extends Section {
 
+	private float pricePercentage;
 	private TrainSectionType sectionType;
 	private int rows;
 	private int columns;
+
+
+	public TrainSection(float pricePercentage, TrainSectionType sectionType, int rows, int columns) {
+		this.pricePercentage = pricePercentage;
+		this.sectionType = sectionType;
+		this.rows = rows;
+		this.columns = columns;
+	}
 
 	public TrainSectionType getSectionType() {
 		return this.sectionType;

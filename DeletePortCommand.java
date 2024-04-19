@@ -1,14 +1,11 @@
 public class DeletePortCommand implements Command {
 
-	private String id;
+	private Application application;
+	private Port port;
 
-	/**
-	 * 
-	 * @param id
-	 */
-	public void deletePort(String id) {
-		// TODO - implement DeletePortCommand.deletePort
-		throw new UnsupportedOperationException();
+	public DeletePortCommand(Port port, Application application) {
+		this.port = port;
+		this.application = application;
 	}
 
 	public void undo() {
@@ -17,8 +14,7 @@ public class DeletePortCommand implements Command {
 	}
 
 	public void execute() {
-		// TODO - implement DeletePortCommand.execute
-		throw new UnsupportedOperationException();
+		application.deletePort(this.port);
 	}
 
 }

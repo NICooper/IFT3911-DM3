@@ -3,16 +3,16 @@ public class CreateTrainSectionCommand {
 	private Vehicle vehicle;
 	private Float pricePercentage;
 	private TrainSectionType sectionType;
+	private int rows;
+	private int columns;
 
-	/**
-	 * 
-	 * @param vehicle
-	 * @param pricePercentage
-	 * @param sectionType
-	 */
-	public TrainSection createTrainSection(Vehicle vehicle, Float pricePercentage, TrainSectionType sectionType) {
-		// TODO - implement CreateTrainSectionCommand.createTrainSection
-		throw new UnsupportedOperationException();
+
+	public CreateTrainSectionCommand(Vehicle vehicle, Float pricePercentage, TrainSectionType sectionType, int rows, int columns) {
+		this.vehicle = vehicle;
+		this.pricePercentage = pricePercentage;
+		this.sectionType = sectionType;
+		this.rows = rows;
+		this.columns = columns;
 	}
 
 	public void undo() {
@@ -21,8 +21,7 @@ public class CreateTrainSectionCommand {
 	}
 
 	public void execute() {
-		// TODO - implement CreateTrainSectionCommand.execute
-		throw new UnsupportedOperationException();
+		vehicle.createTrainSection(this.pricePercentage, this.sectionType, this.rows, this.columns);
 	}
 
 }

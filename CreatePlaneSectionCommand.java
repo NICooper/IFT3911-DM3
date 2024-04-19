@@ -1,7 +1,7 @@
 public class CreatePlaneSectionCommand {
 
 	private Vehicle vehicle;
-	private Float pricePercentage;
+	private float pricePercentage;
 	private int rows;
 	private int columns;
 	private Repartition repartition;
@@ -16,9 +16,13 @@ public class CreatePlaneSectionCommand {
 	 * @param repartition
 	 * @param sectionType
 	 */
-	public PlaneSection createPlaneSection(Vehicle vehicle, Float pricePercentage, int rows, int columns, Repartition repartition, PlaneSectionType sectionType) {
-		// TODO - implement CreatePlaneSectionCommand.createPlaneSection
-		throw new UnsupportedOperationException();
+	public CreatePlaneSectionCommand(Vehicle vehicle, float pricePercentage, int rows, int columns, Repartition repartition, PlaneSectionType sectionType) {
+		this.vehicle = vehicle;
+		this.pricePercentage = pricePercentage;
+		this.rows = rows;
+		this.columns = columns;
+		this.repartition = repartition;
+		this.sectionType = sectionType;
 	}
 
 	public void undo() {
@@ -27,8 +31,7 @@ public class CreatePlaneSectionCommand {
 	}
 
 	public void execute() {
-		// TODO - implement CreatePlaneSectionCommand.execute
-		throw new UnsupportedOperationException();
+		vehicle.createPlaneSection(this.pricePercentage, this.rows, this.columns, this.repartition, this.sectionType);
 	}
 
 }

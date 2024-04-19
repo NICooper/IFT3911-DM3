@@ -1,4 +1,4 @@
-public class CreateBoatSectionCommand {
+public class CreateBoatSectionCommand implements Command{
 
 	private Vehicle vehicle;
 	private Float pricePercentage;
@@ -6,15 +6,26 @@ public class CreateBoatSectionCommand {
 	private int cabinNumber;
 
 	/**
-	 * 
-	 * @param vehicle
-	 * @param pricePercentage
-	 * @param sectionType
-	 * @param cabinNumber
+	 *
+	 * @param vehicle ..
+	 * @param pricePercentage ..
+	 * @param sectionType ..
+	 * @param cabinNumber ..
 	 */
-	public BoatSection createBoatSection(Vehicle vehicle, Float pricePercentage, BoatSectionType sectionType, int cabinNumber) {
-		// TODO - implement CreateBoatSectionCommand.createBoatSection
-		throw new UnsupportedOperationException();
+	CreateBoatSectionCommand(Vehicle vehicle, Float pricePercentage, BoatSectionType sectionType, int cabinNumber) {
+		this.vehicle = vehicle;
+		this.pricePercentage = pricePercentage;
+		this.sectionType = sectionType;
+		this.cabinNumber = cabinNumber;
 	}
 
+	@Override
+	public void execute() {
+		vehicle.createBoatSection(this.pricePercentage, this.sectionType, this.cabinNumber);
+	}
+
+	@Override
+	public void undo() {
+
+	}
 }

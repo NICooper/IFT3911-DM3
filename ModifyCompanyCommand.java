@@ -1,14 +1,13 @@
 public class ModifyCompanyCommand implements Command {
-
+	Application application;
 	private String id;
+	private float price;
 
-	/**
-	 * 
-	 * @param id
-	 */
-	public void modifyCompany(String id) {
-		// TODO - implement ModifyCompanyCommand.modifyCompany
-		throw new UnsupportedOperationException();
+
+	public ModifyCompanyCommand(Application application, String id, float price) {
+		this.application = application;
+		this.id = id;
+		this.price = price;
 	}
 
 	public void undo() {
@@ -17,8 +16,17 @@ public class ModifyCompanyCommand implements Command {
 	}
 
 	public void execute() {
-		// TODO - implement ModifyCompanyCommand.execute
-		throw new UnsupportedOperationException();
+		int i;
+		boolean found = false;
+		for(i = 0; i<application.companies.size(); i++){
+			if(application.companies.get(i).getCompanyId().equals(this.id)){
+				application.companies.get(i).setPrice(this.price);
+				found = true;
+			}
+		}
+		if(!found){
+			System.out.println("Company not found");
+		}
 	}
 
 }

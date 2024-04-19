@@ -1,3 +1,4 @@
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -8,9 +9,29 @@ public abstract class Route {
 	private Date arrivalDate;
 	private Type type;
 	private String id;
-	private Float durationHours;
+	private float durationHours;
 	private Company company;
 	private Port departurePort;
+	private Port arrivalPort;
+	private ArrayList<Port> intermidaryPorts;
+	private Time departureTime;
+	private Time arrivalTime;
+
+	public Time getDepartureTime() {
+		return departureTime;
+	}
+
+	public void setDepartureTime(Time departureTime) {
+		this.departureTime = departureTime;
+	}
+
+	public Time getArrivalTime() {
+		return arrivalTime;
+	}
+
+	public void setArrivalTime(Time arrivalTime) {
+		this.arrivalTime = arrivalTime;
+	}
 
 	public Vehicle getVehicle() {
 		return vehicle;
@@ -35,9 +56,6 @@ public abstract class Route {
 	public void setArrivalPort(Port arrivalPort) {
 		this.arrivalPort = arrivalPort;
 	}
-
-	private Port arrivalPort;
-	private ArrayList<Port> intermidaryPorts;
 
 	public Date getDepartureDate() {
 		return this.departureDate;

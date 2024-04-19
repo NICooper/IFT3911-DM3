@@ -10,18 +10,13 @@ public class CreateRouteCommand {
 	private Date arrivingDate;
 	private Date departureDate;
 
-	/**
-	 * 
-	 * @param travelFactory
-	 * @param id
-	 * @param arrivingTime
-	 * @param departureTime
-	 * @param arrivingDate
-	 * @param departureDate
-	 */
-	public Route createsRoute(TravelFactory travelFactory, String id, Time arrivingTime, Time departureTime, Date arrivingDate, Date departureDate) {
-		// TODO - implement CreateRouteCommand.createsRoute
-		throw new UnsupportedOperationException();
+	public CreateRouteCommand(TravelFactory travelFactory, String id, Time arrivingTime, Time departureTime, Date arrivingDate, Date departureDate) {
+		this.travelFactory = travelFactory;
+		this.id = id;
+		this.arrivingTime = arrivingTime;
+		this.departureTime = departureTime;
+		this.arrivingDate = arrivingDate;
+		this.departureDate = departureDate;
 	}
 
 	public void undo() {
@@ -30,8 +25,11 @@ public class CreateRouteCommand {
 	}
 
 	public void execute() {
-		// TODO - implement CreateRouteCommand.execute
-		throw new UnsupportedOperationException();
+		Route route = travelFactory.createRoute();
+		route.setId(this.id);
+		route.setDepartureDate(this.departureDate);
+		route.setArrivalDate(this.arrivingDate);
+		// TODO - complete maybe
 	}
 
 }

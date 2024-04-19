@@ -1,14 +1,11 @@
 public class DeleteVehicleCommand {
 
-	private String id;
+	private Application application;
+	private Vehicle vehicle;
 
-	/**
-	 * 
-	 * @param id
-	 */
-	public void deleteVehicle(String id) {
-		// TODO - implement DeleteVehicleCommand.deleteVehicle
-		throw new UnsupportedOperationException();
+	public DeleteVehicleCommand(Application application, Vehicle vehicle) {
+		this.application = application;
+		this.vehicle = vehicle;
 	}
 
 	public void undo() {
@@ -17,8 +14,7 @@ public class DeleteVehicleCommand {
 	}
 
 	public void execute() {
-		// TODO - implement DeleteVehicleCommand.execute
-		throw new UnsupportedOperationException();
+		application.deleteVehicle(this.vehicle);
 	}
 
 }

@@ -21,6 +21,22 @@ public class Application implements Subject, ApplicationGetters {
 		this.news = news;
 	}
 
+	public void deleteCompany(Company company){
+		companies.remove(company);
+	}
+
+	public void deletePort(Port port){
+		ports.remove(port);
+	}
+
+	public void deleteRoute(Route route){
+		routes.remove(route);
+	}
+
+	public void deleteVehicle(Vehicle vehicle) {
+		vehicles.remove(vehicle);
+	}
+
 	public void updateNews() {
 		//news = new ArrayList[7];
 		this.news[0].add(admins);
@@ -84,4 +100,5 @@ public class Application implements Subject, ApplicationGetters {
 			observer.update(this.news);
 		}
 	}
+
 }
