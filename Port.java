@@ -1,0 +1,43 @@
+public abstract class Port {
+
+	private String portId;
+	private String city;
+	private Company company;
+
+	public String getPortId() {
+		return this.portId;
+	}
+
+	/**
+	 * 
+	 * @param portId
+	 */
+	public void setPortId(String portId) {
+		this.portId = portId;
+	}
+
+	public String getCity() {
+		return this.city;
+	}
+
+	/**
+	 * 
+	 * @param city
+	 */
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public Company getCompany() {
+		return this.company;
+	}
+
+	/**
+	 * 
+	 * @param company
+	 */
+	public void setCompany(Company company) {
+		this.company = company;
+	}
+
+}
