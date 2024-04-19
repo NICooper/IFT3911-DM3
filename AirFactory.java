@@ -2,11 +2,6 @@ public class AirFactory extends TravelFactory {
 
 	private AirFactory instance;
 
-	protected Company createCompany() {
-		// TODO - implement AirFactory.createCompany
-		throw new UnsupportedOperationException();
-	}
-
 	public AirFactory getInstance() {
 		if(instance == null){
 			return new AirFactory();
@@ -18,19 +13,20 @@ public class AirFactory extends TravelFactory {
 		this.instance = this;
 	}
 
+	protected Company createCompany() {
+		return new AirLine();
+	}
+
 	protected Port createPort() {
-		// TODO - implement AirFactory.createPort
-		throw new UnsupportedOperationException();
+		return new AirPort();
 	}
 
 	protected Route createRoute() {
-		// TODO - implement AirFactory.createRoute
-		throw new UnsupportedOperationException();
+		return new Flight();
 	}
 
 	protected Vehicle createVehicle() {
-		// TODO - implement AirFactory.createVehicle
-		throw new UnsupportedOperationException();
+		return new Airplane();
 	}
 
 }

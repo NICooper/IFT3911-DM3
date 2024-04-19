@@ -2,11 +2,6 @@ public class SeaFactory extends TravelFactory {
 
 	private SeaFactory instance;
 
-	protected Company createCompany() {
-		// TODO - implement SeaFactory.createCompany
-		throw new UnsupportedOperationException();
-	}
-
 	public SeaFactory getInstance() {
 		if(instance == null){
 			return new SeaFactory();
@@ -18,19 +13,20 @@ public class SeaFactory extends TravelFactory {
 		this.instance = this;
 	}
 
+	protected Company createCompany() {
+		return new CruiseLine();
+	}
+
 	protected Port createPort() {
-		// TODO - implement SeaFactory.createPort
-		throw new UnsupportedOperationException();
+		return new SeaPort();
 	}
 
 	protected Route createRoute() {
-		// TODO - implement SeaFactory.createRoute
-		throw new UnsupportedOperationException();
+		return new Cruise();
 	}
 
 	protected Vehicle createVehicle() {
-		// TODO - implement SeaFactory.createVehicle
-		throw new UnsupportedOperationException();
+		return new Boat();
 	}
 
 }

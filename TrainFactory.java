@@ -2,11 +2,6 @@ public class TrainFactory extends TravelFactory {
 
 	private TrainFactory instance;
 
-	protected Company createCompany() {
-		// TODO - implement TrainFactory.createCompany
-		throw new UnsupportedOperationException();
-	}
-
 	public TrainFactory getInstance() {
 		if(instance == null) {
 			return new TrainFactory();
@@ -18,19 +13,20 @@ public class TrainFactory extends TravelFactory {
 		this.instance = this;
 	}
 
+	protected Company createCompany() {
+		return new TrainLine();
+	}
+
 	protected Port createPort() {
-		// TODO - implement TrainFactory.createPort
-		throw new UnsupportedOperationException();
+		return new TrainStation();
 	}
 
 	protected Route createRoute() {
-		// TODO - implement TrainFactory.createRoute
-		throw new UnsupportedOperationException();
+		return new RailRoad();
 	}
 
 	protected Vehicle createVehicle() {
-		// TODO - implement TrainFactory.createVehicle
-		throw new UnsupportedOperationException();
+		return new Train();
 	}
 
 }
