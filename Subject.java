@@ -12,6 +12,6 @@ public interface Subject {
 	 */
 	void detach(Observer observer);
 
-	void notify();
+	void notifyObservers();
 
 }

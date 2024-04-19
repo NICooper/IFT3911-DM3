@@ -1,4 +1,4 @@
-public class Payment {
+public class Payment implements PaymentAuthorization{
 
 	private String id;
 

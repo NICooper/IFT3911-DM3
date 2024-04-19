@@ -7,6 +7,6 @@ public interface SeatConfirmation {
 	 * @param email
 	 * @param passportNumber
 	 */
-	boolean confirmSeat(string firstName, string lastName, string email, string passportNumber);
+	boolean confirmSeat(String firstName, String lastName, String email, String passportNumber);
 
 }

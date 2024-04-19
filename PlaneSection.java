@@ -3,7 +3,7 @@ public class PlaneSection extends Section {
 	private int rows;
 	private int columns;
 	private PlaneSectionType sectionType;
-	private Repartitions repartition;
+	private Repartition repartition;
 
 	public int getRows() {
 		return this.rows;
@@ -37,7 +37,7 @@ public class PlaneSection extends Section {
 		this.sectionType = sectionType;
 	}
 
-	public Repartitions getRepartition() {
+	public Repartition getRepartition() {
 		return this.repartition;
 	}
 
@@ -45,7 +45,7 @@ public class PlaneSection extends Section {
 	 * 
 	 * @param repartition
 	 */
-	public void setRepartition(Repartitions repartition) {
+	public void setRepartition(Repartition repartition) {
 		this.repartition = repartition;
 	}
 

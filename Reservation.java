@@ -1,3 +1,5 @@
+import java.util.Date;
+
 public class Reservation implements SeatConfirmation, Validation {
 
 	private String reservationNumber;
@@ -21,4 +23,13 @@ public class Reservation implements SeatConfirmation, Validation {
 		return this.seat;
 	}
 
+	@Override
+	public boolean confirmSeat(String firstName, String lastName, String email, String passportNumber) {
+		return false;
+	}
+
+	@Override
+	public boolean isValid() {
+		return false;
+	}
 }

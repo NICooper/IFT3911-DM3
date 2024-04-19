@@ -1,8 +1,7 @@
-import Visitor.*;
 
-public class AdminView implements visitRailRoad, Visitor {
+public class AdminView implements Visitor {
 
-	private State state;
+	//private State state;
 
 	public void display() {
 		// TODO - implement AdminView.display
@@ -14,4 +13,18 @@ public class AdminView implements visitRailRoad, Visitor {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
+	public void visitFlight(Flight flight) {
+
+	}
+
+	@Override
+	public void visitRailRoad(RailRoad railRoad) {
+
+	}
+
+	@Override
+	public void visitCruise(Cruise cruise) {
+
+	}
 }

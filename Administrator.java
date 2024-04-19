@@ -1,10 +1,13 @@
-import Observer.*;
+import java.util.ArrayList;
 
-public class Administrator implements update, Observer {
+public class Administrator {
 
 	private String name;
 	private String id;
-	private ArrayList<Commande> historiquesCommandes;
+	private ArrayList<Command> historiquesCommandes; //stack ?
+
+	private AdminView adminView;
+	//private State state;
 
 	public void undo() {
 		// TODO - implement Administrator.undo

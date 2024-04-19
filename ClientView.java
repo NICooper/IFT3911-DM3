@@ -1,6 +1,6 @@
 public class ClientView implements Visitor {
 
-	private State state;
+	//private State state;
 
 	public void display() {
 		// TODO - implement ClientView.display
@@ -12,4 +12,18 @@ public class ClientView implements Visitor {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
+	public void visitFlight(Flight flight) {
+
+	}
+
+	@Override
+	public void visitRailRoad(RailRoad railRoad) {
+
+	}
+
+	@Override
+	public void visitCruise(Cruise cruise) {
+
+	}
 }

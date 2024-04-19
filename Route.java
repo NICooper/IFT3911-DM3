@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Date;
+
 public abstract class Route {
 
 	Vehicle vehicle;
@@ -7,6 +10,9 @@ public abstract class Route {
 	private String id;
 	private Float durationHours;
 	private Company company;
+	private Port departurePort;
+	private Port arrivalPort;
+	private ArrayList<Port> intermidaryPorts;
 
 	public Date getDepartureDate() {
 		return this.departureDate;

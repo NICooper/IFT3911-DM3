@@ -1,10 +1,12 @@
+import java.util.ArrayList;
+
 public interface ApplicationGetters {
 
 	ArrayList<Port> getPorts();
 
 	ArrayList<Company> getCompanies();
 
-	ArrayList<Routes> getRoutes();
+	ArrayList<Route> getRoutes();
 
 	ArrayList<Vehicle> getVehicles();
 

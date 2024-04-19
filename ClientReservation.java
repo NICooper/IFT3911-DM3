@@ -17,6 +17,6 @@ public interface ClientReservation {
 	 * @param email
 	 * @param passportNumber
 	 */
-	boolean pay(String reservationNumber, String firstName, string lastName, String email, String passportNumber);
+	boolean pay(String reservationNumber, String firstName, String lastName, String email, String passportNumber);
 
 }
