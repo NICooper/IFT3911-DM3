@@ -1,6 +1,8 @@
 import Visitor.*;
 
-public class AdminView extends Observer implements visitFlight {
+public class AdminView implements visitRailRoad, Visitor {
+
+	private State state;
 
 	public void display() {
 		// TODO - implement AdminView.display

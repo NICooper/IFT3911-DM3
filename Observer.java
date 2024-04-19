@@ -1,8 +1,5 @@
-public abstract class Observer {
+public interface Observer {
 
-	public void update() {
-		// TODO - implement Observer.update
-		throw new UnsupportedOperationException();
-	}
+	void update();
 
 }

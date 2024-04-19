@@ -1,4 +1,6 @@
-public class ClientView extends Observer implements Visitor {
+public class ClientView implements Visitor {
+
+	private State state;
 
 	public void display() {
 		// TODO - implement ClientView.display

@@ -1,12 +1,11 @@
 import ClientReservation.*;
 
-public class Client implements reserveSiege, ClientRouteVerification {
+public class Client implements reserveSiege, ClientRouteVerification, Observer, ClientReservation {
 
 	private String firstName;
 	private string lastName;
 	private String email;
 	private String passportNumber;
-	private State state;
 
 	public void seatEvent() {
 		// TODO - implement Client.seatEvent

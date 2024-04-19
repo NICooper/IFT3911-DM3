@@ -1,9 +1,10 @@
-public class Administrator {
+import Observer.*;
+
+public class Administrator implements update, Observer {
 
 	private String name;
 	private String id;
 	private ArrayList<Commande> historiquesCommandes;
-	private State state;
 
 	public void undo() {
 		// TODO - implement Administrator.undo

@@ -1,7 +1,7 @@
 import Subject.*;
 import java.util.*;
 
-public class Application implements attach, ApplicationGetters {
+public class Application implements attach, ApplicationGetters, Subject {
 
 	Collection<Administrator> admins;
 	Collection<Port> ports;
