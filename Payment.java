@@ -1,14 +1,17 @@
-public class Payment implements PaymentAuthorization{
+public class Payment{
 
+	private PaymentAuthorizationStrategy strategy;
+	private double amount;
 	private String id;
 
-	/**
-	 * 
-	 * @param price
-	 */
-	public boolean authorize(float price) {
-		// TODO - implement Payment.authorize
-		throw new UnsupportedOperationException();
+	public Payment(PaymentAuthorizationStrategy strategy) {
+		this.strategy = strategy;
+		this.amount = amount;
+		this.id = id;
 	}
 
+	public boolean processPayment(double amount) {
+		return strategy.authorize(this.amount);
+	}
 }
+
