@@ -4,6 +4,12 @@ public abstract class Port {
 	private String city;
 	private Company company;
 
+	public Port(String portId, String city, Company company) {
+		this.portId = portId;
+		this.city = city;
+		this.company = company;
+	}
+
 	public String getPortId() {
 		return this.portId;
 	}
