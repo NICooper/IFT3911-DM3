@@ -58,17 +58,17 @@ public abstract class Vehicle {
 	}
 
 	public void createBoatSection(Float pricePercentage, BoatSectionType sectionType, int cabinNumber) {
-		BoatSection b_section = new BoatSection(pricePercentage, sectionType, cabinNumber);
+		BoatSection b_section = new BoatSection(this, pricePercentage, sectionType, cabinNumber);
 		addSection(b_section);
 	}
 
 	public void createPlaneSection(Float pricePercentage, int rows, int columns, Repartition repartition, PlaneSectionType sectionType){
-		PlaneSection p_section = new PlaneSection(pricePercentage, rows, columns, repartition, sectionType);
+		PlaneSection p_section = new PlaneSection(this, pricePercentage, rows, columns, repartition, sectionType);
 		addSection(p_section);
 	}
 
 	public void createTrainSection(Float pricePercentage, TrainSectionType sectionType, int rows, int columns) {
-		TrainSection t_section = new TrainSection(pricePercentage, sectionType, rows, columns);
+		TrainSection t_section = new TrainSection(this, pricePercentage, sectionType, rows, columns);
 		addSection(t_section);
 	}
 }

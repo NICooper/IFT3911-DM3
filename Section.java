@@ -8,5 +8,6 @@ public abstract class Section {
 	public Float getPricePercentage() {
 		return this.pricePercentage;
 	}
+	public abstract float getSectionPrice();
 
 }

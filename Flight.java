@@ -8,9 +8,4 @@ public class Flight extends Route implements IVisitable {
 		v.visitFlight(this);
 	}
 
-	protected void show() {
-		// TODO - implement Flight.show
-		throw new UnsupportedOperationException();
-	}
-
 }

@@ -8,9 +8,4 @@ public class Cruise extends Route {
 		v.visitCruise(this);
 	}
 
-	protected void show() {
-		// TODO - implement Cruise.show
-		throw new UnsupportedOperationException();
-	}
-
 }

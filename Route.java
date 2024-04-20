@@ -129,6 +129,4 @@ public abstract class Route {
 		this.durationHours = durationHours;
 	}
 
-	protected abstract void show();
-
 }
