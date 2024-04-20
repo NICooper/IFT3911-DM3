@@ -24,10 +24,7 @@ public class CreatePortCommand {
 	}
 
 	public void execute() {
-		Port port = travelFactory.createPort();
-		port.setPortId(this.id);
-		port.setCity(this.city);
-		port.setCompany(this.company);
+		Port port = travelFactory.createPort(id, city, company);
 	}
 
 }
