@@ -32,4 +32,9 @@ public class Reservation implements SeatConfirmation, Validation {
 	public boolean isValid() {
 		return false;
 	}
+	
+	public String getReservationNumber() {
+		return reservationNumber;
+	}
+}
 }
