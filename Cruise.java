@@ -5,8 +5,7 @@ public class Cruise extends Route {
 	 * @param v
 	 */
 	public void accept(Visitor v) {
-		// TODO - implement Cruise.accept
-		throw new UnsupportedOperationException();
+		v.visitCruise(this);
 	}
 
 	protected void show() {
