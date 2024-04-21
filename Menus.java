@@ -6,7 +6,7 @@ public class Menus {
     private Scanner scanner;
 
     public Menus() {
-        // Initialize instances of Administrator and Client
+        // initialistion des instances
         admin = new Administrator();
         client = new Client();
         scanner = new Scanner(System.in);
