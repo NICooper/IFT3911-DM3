@@ -60,7 +60,7 @@ public class Menus {
         }
     }
 
-    // Implement other menu methods as needed
+    // autres..
 
     public static void main(String[] args) {
         Menus menus = new Menus();
