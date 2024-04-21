@@ -1,31 +1,29 @@
 public class ModifyPortCommand {
-	private Application application;
-	private String id;
-	private Company company;
+	private final Application application;
+	private final Port port;
+	private Port portMemento;
+	private final String newId;
+	private final String newCity;
+	private final Company newCompany;
 
-	public ModifyPortCommand(Application application, String id, Company company) {
+	public ModifyPortCommand(Application application, Port port, String newId, String newCity, Company newCompany) {
 		this.application = application;
-		this.id = id;
-		this.company = company;
+		this.port = port;
+		this.newId = newId;
+		this.newCity = newCity;
+		this.newCompany = newCompany;
 	}
 
 	public void undo() {
-		// TODO - implement ModifyPortCommand.undo
-		throw new UnsupportedOperationException();
+		port.restore(portMemento);
+		application.modifyPort(port);
 	}
 
 	public void execute() {
-		int i;
-		boolean found = false;
-		for(i = 0; i<application.ports.size(); i++){
-			if(application.ports.get(i).getPortId().equals(this.id)){
-				application.ports.get(i).setCompany(this.company);
-				found = true;
-			}
-		}
-		if(!found){
-			System.out.println("Port not found");
-		}
+		portMemento = port.copy();
+		port.setPortId(newId);
+		port.setCity(newCity);
+		port.setCompany(newCompany);
+		application.modifyPort(port);
 	}
-
 }

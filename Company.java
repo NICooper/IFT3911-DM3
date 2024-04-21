@@ -4,6 +4,11 @@ public abstract class Company {
 	private String companyId;
 	private Float price;
 
+	public Company(String companyId, Float price) {
+		this.companyId = companyId;
+		this.price = price;
+	}
+
 	public String getCompanyId() {
 		return this.companyId;
 	}
@@ -28,4 +33,10 @@ public abstract class Company {
 		this.price = price;
 	}
 
+	public abstract Company copy();
+
+	public void restore(Company company) {
+		this.companyId = company.companyId;
+		this.price = company.price;
+	}
 }

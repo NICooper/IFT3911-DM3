@@ -13,8 +13,8 @@ public class SeaFactory extends TravelFactory {
 		return instance;
 	}
 
-	protected Company createCompany() {
-		return new CruiseLine();
+	protected Company createCompany(String companyId, float price) {
+		return new CruiseLine(companyId, price);
 	}
 
 	protected Port createPort(String portId, String city, Company company) {

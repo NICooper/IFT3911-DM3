@@ -1,7 +1,7 @@
 public class DeletePortCommand implements Command {
 
-	private Application application;
-	private Port port;
+	private final Application application;
+	private final Port port;
 
 	public DeletePortCommand(Port port, Application application) {
 		this.port = port;
@@ -9,8 +9,7 @@ public class DeletePortCommand implements Command {
 	}
 
 	public void undo() {
-		// TODO - implement DeletePortCommand.undo
-		throw new UnsupportedOperationException();
+		application.addPort(port);
 	}
 
 	public void execute() {

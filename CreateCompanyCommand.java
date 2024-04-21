@@ -1,8 +1,9 @@
 public class CreateCompanyCommand {
-
-	private TravelFactory travelFactory;
-	private String id;
-	private Float price;
+	private final Application application;
+	private final TravelFactory travelFactory;
+	private final String id;
+	private final Float price;
+	private Company createdCompany;
 
 	/**
 	 * 
@@ -10,21 +11,20 @@ public class CreateCompanyCommand {
 	 * @param id
 	 * @param price
 	 */
-	public CreateCompanyCommand(TravelFactory travelFactory, String id, Float price) {
+	public CreateCompanyCommand(Application application, TravelFactory travelFactory, String id, Float price) {
+		this.application = application;
 		this.travelFactory = travelFactory;
 		this.id = id;
 		this.price = price;
 	}
 
 	public void undo() {
-		// TODO - implement CreateCompanyCommand.undo
-		throw new UnsupportedOperationException();
+		application.deleteCompany(createdCompany);
 	}
 
 	public void execute() {
-		Company company = travelFactory.createCompany();
-		company.setCompanyId(this.id);
-		company.setPrice(this.price);
+		createdCompany = travelFactory.createCompany(this.id, this.price);
+		application.addCompany(createdCompany);
 	}
 
 }

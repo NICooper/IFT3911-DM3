@@ -1,17 +1,22 @@
 public class CreatePortCommand {
-
-	private TravelFactory travelFactory;
-	private String id;
-	private String city;
-	private Company company;
+	private final Application application;
+	private final TravelFactory travelFactory;
+	private final String id;
+	private final String city;
+	private final Company company;
+	private Port createdPort;
 
 	/**
 	 *
+	 * @param application
 	 * @param travelFactory
 	 * @param id
 	 * @param city
+	 * @param company
+	 *
 	 */
-	public CreatePortCommand(TravelFactory travelFactory, String id, String city, Company company) {
+	public CreatePortCommand(Application application, TravelFactory travelFactory, String id, String city, Company company) {
+		this.application = application;
 		this.travelFactory = travelFactory;
 		this.id = id;
 		this.city = city;
@@ -19,12 +24,12 @@ public class CreatePortCommand {
 	}
 
 	public void undo() {
-		// TODO - implement CreatePortCommand.undo
-		throw new UnsupportedOperationException();
+		application.deletePort(createdPort);
 	}
 
 	public void execute() {
-		Port port = travelFactory.createPort(id, city, company);
+		createdPort = travelFactory.createPort(id, city, company);
+		application.addPort(createdPort);
 	}
 
 }

@@ -6,15 +6,15 @@ public class TrainFactory extends TravelFactory {
 		instance = this;
 	}
 
-	public TrainFactory getInstance() {
+	public static TrainFactory getInstance() {
 		if(instance == null) {
 			return new TrainFactory();
 		}
 		return instance;
 	}
 
-	protected Company createCompany() {
-		return new TrainLine();
+	protected Company createCompany(String companyId, float price) {
+		return new TrainLine(companyId, price);
 	}
 
 	protected Port createPort(String portId, String city, Company company) {

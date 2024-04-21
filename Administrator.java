@@ -1,10 +1,11 @@
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class Administrator implements Observer{
 
 	private String name;
 	private String id;
-	private ArrayList<Command> historiquesCommandes; //stack ?
+	private final Stack<Command> commandHistory = new Stack<>();
 	private ArrayList<Object>[] news;
 
 	public ArrayList<Object>[] getNews() {
@@ -19,8 +20,8 @@ public class Administrator implements Observer{
 	//private State state;
 
 	public void undo() {
-		// TODO - implement Administrator.undo
-		throw new UnsupportedOperationException();
+		var topCommand = commandHistory.pop();
+		topCommand.undo();
 	}
 
 	@Override

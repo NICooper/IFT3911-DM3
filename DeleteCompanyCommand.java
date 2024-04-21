@@ -1,7 +1,7 @@
 public class DeleteCompanyCommand {
 
-	private Company company;
-	private Application application;
+	private final Company company;
+	private final Application application;
 
 	public DeleteCompanyCommand(Company company, Application application) {
 		this.company = company;
@@ -9,8 +9,7 @@ public class DeleteCompanyCommand {
 	}
 
 	public void undo() {
-		// TODO - implement DeleteCompanyCommand.undo
-		throw new UnsupportedOperationException();
+		application.addCompany(company);
 	}
 
 	public void execute() {

@@ -2,15 +2,16 @@ import java.util.*;
 
 public class Application implements Subject, ApplicationGetters {
 
-	ArrayList<Observer> observers = new ArrayList<>();
-	ArrayList<Administrator> admins;
-	ArrayList<Port> ports;
-	ArrayList<Company> companies;
-	ArrayList<Route> routes;
-	ArrayList<Reservation> reservations;
-	ArrayList<Vehicle> vehicles;
-	ArrayList<Client> clients;
-	ArrayList<Object>[] news = new ArrayList[7];
+	private ArrayList<Observer> observers = new ArrayList<>();
+	private ArrayList<Administrator> admins = new ArrayList<>();
+	private ArrayList<Port> ports = new ArrayList<>();
+	private ArrayList<Company> companies = new ArrayList<>();
+	private ArrayList<Route> routes = new ArrayList<>();
+	private ArrayList<Reservation> reservations = new ArrayList<>();
+	private ArrayList<Vehicle> vehicles = new ArrayList<>();
+	private ArrayList<Client> clients = new ArrayList<>();
+	private ArrayList<Object>[] news = new ArrayList[7];
+
 
 
 	public ArrayList<Object>[] getNews() {
@@ -19,22 +20,6 @@ public class Application implements Subject, ApplicationGetters {
 
 	public void setNews(ArrayList<Object>[] news) {
 		this.news = news;
-	}
-
-	public void deleteCompany(Company company){
-		companies.remove(company);
-	}
-
-	public void deletePort(Port port){
-		ports.remove(port);
-	}
-
-	public void deleteRoute(Route route){
-		routes.remove(route);
-	}
-
-	public void deleteVehicle(Vehicle vehicle) {
-		vehicles.remove(vehicle);
 	}
 
 	public void updateNews() {
@@ -46,6 +31,84 @@ public class Application implements Subject, ApplicationGetters {
 		this.news[4].add(reservations);
 		this.news[5].add(vehicles);
 		this.news[6].add(clients);
+	}
+
+	public void addAdmin(Administrator admin) {
+		admins.add(admin);
+	}
+
+	public void addPort(Port port) {
+		ports.add(port);
+		notifyObservers();
+	}
+
+	public void addCompany(Company company) {
+		companies.add(company);
+		notifyObservers();
+	}
+
+	public void addRoute(Route route) {
+		routes.add(route);
+		notifyObservers();
+	}
+
+	public void addReservation(Reservation reservation) {
+		reservations.add(reservation);
+		notifyObservers();
+	}
+
+	public void addVehicle(Vehicle vehicle) {
+		vehicles.add(vehicle);
+		notifyObservers();
+	}
+
+	public void addClient(Client client) {
+		clients.add(client);
+	}
+
+	public void modifyPort(Port port) {
+		// Would save the modified data to a database
+		notifyObservers();
+	}
+
+	public void modifyCompany(Company company) {
+		// Would save the modified data to a database
+		notifyObservers();
+	}
+
+	public void modifyRoute(Route route) {
+		// Would save the modified data to a database
+		notifyObservers();
+	}
+
+	public void modifyReservation(Reservation reservation) {
+		// Would save the modified data to a database
+		notifyObservers();
+	}
+
+	public void modifyVehicle(Vehicle vehicle) {
+		// Would save the modified data to a database
+		notifyObservers();
+	}
+
+	public void deletePort(Port port){
+		ports.remove(port);
+		notifyObservers();
+	}
+
+	public void deleteCompany(Company company){
+		companies.remove(company);
+		notifyObservers();
+	}
+
+	public void deleteRoute(Route route){
+		routes.remove(route);
+		notifyObservers();
+	}
+
+	public void deleteVehicle(Vehicle vehicle) {
+		vehicles.remove(vehicle);
+		notifyObservers();
 	}
 
 	@Override
@@ -94,7 +157,7 @@ public class Application implements Subject, ApplicationGetters {
 	}
 
 	@Override
-	public void notifyObservers() {
+	public void notifyObservers(Class stateClass, List<Object> state) {
 		updateNews();
 		for(Observer observer : observers){
 			observer.update(this.news);

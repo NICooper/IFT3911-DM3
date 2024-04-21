@@ -15,7 +15,7 @@ public abstract class Port {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param portId
 	 */
 	public void setPortId(String portId) {
@@ -27,7 +27,7 @@ public abstract class Port {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param city
 	 */
 	public void setCity(String city) {
@@ -39,11 +39,19 @@ public abstract class Port {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param company
 	 */
 	public void setCompany(Company company) {
 		this.company = company;
+	}
+
+	public abstract Port copy();
+
+	public void restore(Port port) {
+		this.portId = port.portId;
+		this.city = port.city;
+		this.company = port.company;
 	}
 
 }
