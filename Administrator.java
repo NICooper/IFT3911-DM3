@@ -30,8 +30,10 @@ public class Administrator implements Observer{
 		this.command = command;
 	}
 
-	public void exec(){
-		command.execute();
+	public void exec() {
+		if (command.execute()) {
+			commandHistory.push(command);
+		}
 	}
 
 	@Override
