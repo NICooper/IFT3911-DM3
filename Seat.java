@@ -20,6 +20,14 @@ public abstract class Seat {
 		throw new UnsupportedOperationException();
 	}
 
+	public void nextState(){
+		currentState.next(this);
+	}
+
+	public void prevState(){
+		currentState.prev(this);
+	}
+
 	/**
 	 * 
 	 * @param isAvailable
