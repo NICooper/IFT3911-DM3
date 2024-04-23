@@ -4,7 +4,7 @@ public class Train extends Vehicle {
     }
 
     @Override
-    public Vehicle copy() {
+    public Train copy() {
         return new Train(getVehicleId(), getModel(), getCompany());
     }
 }

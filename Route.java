@@ -2,7 +2,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public abstract class Route implements IVisitable {
+public abstract class Route implements IVisitable, ProtoMemento<Route> {
 
 	protected Vehicle vehicle;
 	protected LocalDateTime departureTime;
@@ -105,14 +105,23 @@ public abstract class Route implements IVisitable {
 		this.id = id;
 	}
 
-	public abstract Route copy();
+	public abstract ProtoMemento<Route> copy();
 
-	public void restore(Route route) throws InvalidPortsException, InvalidTimeException {
-		setVehicle(route.vehicle);
-		setCompany(route.company);
-		setId(route.id);
-		setDepartureAndArrivalTime(departureTime, arrivalTime);
-		setPorts(route.ports);
+	public void restore(ProtoMemento<Route> memento) {
+		if (memento.getClass() == this.getClass()) {
+			var route = (Route) memento;
+			try {
+				setVehicle(route.vehicle);
+				setCompany(route.company);
+				setId(route.id);
+				setDepartureAndArrivalTime(departureTime, arrivalTime);
+				setPorts(route.ports);
+			} catch (InvalidTimeException | InvalidPortsException e) {
+				// This is very unlikely to happen since we are copying valid values.
+				throw new RuntimeException(e);
+			}
+
+		}
 	}
 
 	/**

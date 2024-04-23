@@ -1,7 +1,7 @@
 public class ModifyPortCommand {
 	private final Application application;
 	private final Port port;
-	private Port portMemento;
+	private ProtoMemento<Port> portMemento;
 	private final String newId;
 	private final String newCity;
 
@@ -13,11 +13,7 @@ public class ModifyPortCommand {
 	}
 
 	public boolean undo() {
-		try {
-			port.restore(portMemento);
-		} catch (InvalidIdException e) {
-			return false;
-		}
+		port.restore(portMemento);
 		return application.modifyPort(port);
 	}
 

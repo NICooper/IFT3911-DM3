@@ -3,7 +3,7 @@ public class AirLine extends Company {
         super(companyId, price);
     }
 
-    public Company copy() {
+    public AirLine copy() {
         try {
             return new AirLine(this.getCompanyId(), this.getPrice());
         }

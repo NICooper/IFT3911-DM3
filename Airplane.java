@@ -4,7 +4,7 @@ public class Airplane extends Vehicle {
     }
 
     @Override
-    public Vehicle copy() {
+    public Airplane copy() {
         return new Airplane(getVehicleId(), getModel(), getCompany());
     }
 }

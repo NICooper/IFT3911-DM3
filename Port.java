@@ -1,4 +1,4 @@
-public abstract class Port {
+public abstract class Port implements ProtoMemento<Port> {
 
 	private String portId;
 	private String city;
@@ -35,11 +35,20 @@ public abstract class Port {
 		this.city = city;
 	}
 
-	public abstract Port copy();
+	public abstract ProtoMemento<Port> copy();
 
-	public void restore(Port port) throws InvalidIdException {
-		setPortId(port.portId);
-		setCity(port.city);
-	}
+	public void restore(ProtoMemento<Port> memento) {
+		if (memento.getClass() == this.getClass()) {
+			var port = (Port) memento;
+			try {
+				setPortId(port.portId);
+				setCity(port.city);
+			} catch (InvalidIdException e) {
+				// This is very unlikely to happen since we are copying valid values.
+				throw new RuntimeException(e);
+			}
+
+			}
+		}
 
 }

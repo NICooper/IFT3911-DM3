@@ -1,4 +1,4 @@
-public abstract class Company {
+public abstract class Company implements ProtoMemento<Company> {
 
 	TravelFactory factory;
 	private String companyId;
@@ -37,10 +37,19 @@ public abstract class Company {
 		this.price = price;
 	}
 
-	public abstract Company copy();
+	public abstract ProtoMemento<Company> copy();
 
-	public void restore(Company company) throws InvalidIdException {
-		setCompanyId(company.companyId);
-		setPrice(company.price);
+	public void restore(ProtoMemento<Company> memento) {
+		if (memento.getClass() == this.getClass()) {
+			var company = (Company) memento;
+			try {
+				setCompanyId(company.companyId);
+				setPrice(company.price);
+			}
+			catch (InvalidIdException e) {
+				// This is very unlikely to happen since we are copying valid values.
+				throw new RuntimeException(e);
+			}
+		}
 	}
 }

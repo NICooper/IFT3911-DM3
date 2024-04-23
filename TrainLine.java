@@ -3,7 +3,7 @@ public class TrainLine extends Company {
         super(companyId, price);
     }
 
-    public Company copy() {
+    public TrainLine copy() {
         try {
             return new TrainLine(this.getCompanyId(), this.getPrice());
         }

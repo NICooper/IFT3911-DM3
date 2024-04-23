@@ -3,7 +3,7 @@ public class CruiseLine extends Company {
         super(companyId, price);
     }
 
-    public Company copy() {
+    public CruiseLine copy() {
         try {
             return new CruiseLine(this.getCompanyId(), this.getPrice());
         } catch (InvalidIdException e) {

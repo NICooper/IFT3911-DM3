@@ -1,4 +1,4 @@
-public class CreateBoatSectionCommand implements Command{
+public class CreateBoatSectionCommand implements Command {
 
 	private Vehicle vehicle;
 	private float pricePercentage;
@@ -20,12 +20,13 @@ public class CreateBoatSectionCommand implements Command{
 	}
 
 	@Override
-	public boolean execute() {
-		vehicle.createBoatSection(this.pricePercentage, this.sectionType, this.cabinNumber);
+	public boolean undo() {
+	 	return true;
 	}
 
 	@Override
-	public boolean undo() {
-
+	public boolean execute() {
+		vehicle.createBoatSection(this.pricePercentage, this.sectionType, this.cabinNumber);
+		return true;
 	}
 }

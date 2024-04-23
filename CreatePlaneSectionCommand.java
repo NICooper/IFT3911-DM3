@@ -25,13 +25,14 @@ public class CreatePlaneSectionCommand {
 		this.sectionType = sectionType;
 	}
 
-	public void undo() {
+	public boolean undo() {
 		// TODO - implement CreatePlaneSectionCommand.undo
 		throw new UnsupportedOperationException();
 	}
 
-	public void execute() {
+	public boolean execute() {
 		vehicle.createPlaneSection(this.pricePercentage, this.rows, this.columns, this.repartition, this.sectionType);
+		return true;
 	}
 
 }

@@ -3,7 +3,7 @@ public class ModifyCompanyCommand implements Command {
 	private final String newId;
 	private final float newPrice;
 	private final Company company;
-	private Company companyMemento;
+	private ProtoMemento<Company> companyMemento;
 
 	public ModifyCompanyCommand(Application application, Company company, String newId, float newPrice) {
 		this.application = application;
@@ -13,11 +13,7 @@ public class ModifyCompanyCommand implements Command {
 	}
 
 	public boolean undo() {
-		try {
-			company.restore(companyMemento);
-		} catch (InvalidIdException e) {
-			return false;
-		}
+		company.restore(companyMemento);
 		return application.modifyCompany(company);
 	}
 
@@ -25,11 +21,11 @@ public class ModifyCompanyCommand implements Command {
 		companyMemento = company.copy();
 		try {
 			company.setCompanyId(newId);
+			company.setPrice(newPrice);
 		}
 		catch (InvalidIdException e) {
 			return false;
 		}
-		company.setPrice(newPrice);
 		return application.modifyCompany(company);
 	}
 

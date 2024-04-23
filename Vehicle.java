@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public abstract class Vehicle {
+public abstract class Vehicle implements ProtoMemento<Vehicle> {
 
 	private String vehicleId;
 	private String model;
@@ -78,11 +78,14 @@ public abstract class Vehicle {
 		addSection(t_section);
 	}
 
-	public abstract Vehicle copy();
+	public abstract ProtoMemento<Vehicle> copy();
 
-	public void restore(Vehicle vehicle) {
-		setVehicleId(vehicle.vehicleId);
-		setModel(vehicle.model);
-		setCompany(vehicle.company);
+	public void restore(ProtoMemento<Vehicle> memento) {
+		if (memento.getClass() == this.getClass()) {
+			var vehicle = (Vehicle) memento;
+			setVehicleId(vehicle.vehicleId);
+			setModel(vehicle.model);
+			setCompany(vehicle.company);
+		}
 	}
 }

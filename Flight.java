@@ -8,7 +8,7 @@ public class Flight extends Route {
 	}
 
 	@Override
-	public Route copy() {
+	public Flight copy() {
 		try {
 			return new Flight(vehicle, company, id, ports, departureTime, arrivalTime);
 		}

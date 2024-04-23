@@ -15,13 +15,14 @@ public class CreateTrainSectionCommand {
 		this.columns = columns;
 	}
 
-	public void undo() {
+	public boolean undo() {
 		// TODO - implement CreateTrainSectionCommand.undo
 		throw new UnsupportedOperationException();
 	}
 
-	public void execute() {
+	public boolean execute() {
 		vehicle.createTrainSection(this.pricePercentage, this.sectionType, this.rows, this.columns);
+		return true;
 	}
 
 }

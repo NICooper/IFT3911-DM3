@@ -1,6 +1,4 @@
-import java.sql.Time;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 public class ModifyRouteCommand implements Command {
@@ -13,7 +11,7 @@ public class ModifyRouteCommand implements Command {
 	private final LocalDateTime arrivalTime;
 	private final LocalDateTime departureTime;
 	private final Route route;
-	private Route routeMemento;
+	private ProtoMemento<Route> routeMemento;
 
 	public ModifyRouteCommand(Application application, Route route, Vehicle vehicle, Company company, String id, List<Port> ports, LocalDateTime arrivalTime, LocalDateTime departureTime) {
 		this.application = application;
@@ -27,11 +25,7 @@ public class ModifyRouteCommand implements Command {
 	}
 
 	public boolean undo() {
-		try {
-			route.restore(routeMemento);
-		} catch (InvalidTimeException | InvalidPortsException e) {
-			return false;
-		}
+		route.restore(routeMemento);
 		return application.modifyRoute(route);
 	}
 

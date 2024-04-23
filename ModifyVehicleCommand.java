@@ -1,12 +1,11 @@
 public class ModifyVehicleCommand implements Command {
 
-	private Application application;
-	private String id;
-	private String model;
-	private Company company;
-	private Vehicle vehicle;
-	private Vehicle vehicleMemento;
-
+	private final Application application;
+	private final String id;
+	private final String model;
+	private final Company company;
+	private final Vehicle vehicle;
+	private ProtoMemento<Vehicle> vehicleMemento;
 
 	public ModifyVehicleCommand(Application application, Vehicle vehicle, String id, String model, Company company) {
 		this.application = application;
