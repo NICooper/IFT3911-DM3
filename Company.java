@@ -3,6 +3,7 @@ public abstract class Company implements ProtoMemento<Company> {
 	TravelFactory factory;
 	private String companyId;
 	private float price;
+	protected Type type;
 
 	public Company(String companyId, float price) throws InvalidIdException {
 		setCompanyId(companyId);
@@ -35,6 +36,10 @@ public abstract class Company implements ProtoMemento<Company> {
 	 */
 	public void setPrice(float price) {
 		this.price = price;
+	}
+
+	public Type getType() {
+		return type;
 	}
 
 	public abstract ProtoMemento<Company> copy();

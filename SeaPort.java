@@ -2,6 +2,7 @@ public class SeaPort extends Port {
 
     public SeaPort(String portId, String city) throws InvalidIdException {
         super(portId, city);
+        type = Type.naval;
     }
 
     public SeaPort copy() {

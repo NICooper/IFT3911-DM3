@@ -2,6 +2,7 @@ public abstract class Port implements ProtoMemento<Port> {
 
 	private String portId;
 	private String city;
+	protected Type type;
 
 	public Port(String portId, String city) throws InvalidIdException {
 		setPortId(portId);
@@ -33,6 +34,10 @@ public abstract class Port implements ProtoMemento<Port> {
 	 */
 	public void setCity(String city) {
 		this.city = city;
+	}
+
+	public Type getType() {
+		return type;
 	}
 
 	public abstract ProtoMemento<Port> copy();

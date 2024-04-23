@@ -151,9 +151,19 @@ public class Application implements Subject, ApplicationGetters {
 		notifyObservers();
 	}
 
+	public Port getPort(String portId, Type type) {
+		var match = ports.stream().filter(p -> p.getType() == type && p.getPortId().equals(portId)).findFirst();
+		return match.orElse(null);
+	}
+
 	@Override
 	public ArrayList<Port> getPorts() {
 		return ports;
+	}
+
+	public Company getCompany(String companyId, Type type) {
+		var match = companies.stream().filter(c -> c.getType() == type && c.getCompanyId().equals(companyId)).findFirst();
+		return match.orElse(null);
 	}
 
 	@Override
