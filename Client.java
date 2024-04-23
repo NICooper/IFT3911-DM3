@@ -12,12 +12,12 @@ public class Client implements ClientRouteVerification, Observer, ClientReservat
     private ClientView clientView;
     private ArrayList<Object>[] news;
 
-    public Client(String firstName, String lastName, String email, String passportNumber) {
+    /*public Client(String firstName, String lastName, String email, String passportNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.passportNumber = passportNumber;
-    }
+    }*/
 
     public String getFirstName() {
         return firstName;
@@ -85,6 +85,7 @@ public class Client implements ClientRouteVerification, Observer, ClientReservat
 
     @Override
     public Reservation reserveSiege(Type type, boolean isWindow, Seat seat, boolean isNaval) {
+        /*
         // Implémentation de la réservation d'un siège ou d'une cabine
         if (seat.isAvailable()) {
             Reservation reservation = new Reservation();
@@ -97,11 +98,14 @@ public class Client implements ClientRouteVerification, Observer, ClientReservat
             System.out.println("Ce siège est déjà réservé. Veuillez en choisir un autre.");
             return null;
         }
+        */
+        return null;
     }
 
     @Override
     public boolean pay(String reservationNumber, String firstName, String lastName, String email, String passportNumber) {
         // implementation du paiement d'une réservation
+        /*
         if (this.reservation != null && this.reservation.getReservationNumber().equals(reservationNumber) &&
                 this.firstName.equals(firstName) && this.lastName.equals(lastName) &&
                 this.email.equals(email) && this.passportNumber.equals(passportNumber)) {
@@ -111,6 +115,8 @@ public class Client implements ClientRouteVerification, Observer, ClientReservat
             System.out.println("Les informations fournies ne correspondent pas à la réservation.");
             return false;
         }
+         */
+        return true;
     }
 
     @Override
