@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.util.List;
+
 public class AirFactory extends TravelFactory {
 
 	private static AirFactory instance;
@@ -14,19 +17,34 @@ public class AirFactory extends TravelFactory {
 	}
 
 	protected Company createCompany(String companyId, float price) {
-		return new AirLine(companyId, price);
+		try {
+			return new AirLine(companyId, price);
+		}
+		catch (InvalidIdException e) {
+			return null;
+		}
 	}
 
-	protected Port createPort(String portId, String city, Company company) {
-		return new AirPort(portId, city, company);
+	protected Port createPort(String portId, String city) {
+		try {
+			return new AirPort(portId, city);
+		}
+		catch (InvalidIdException e) {
+			return null;
+		}
 	}
 
-	protected Route createRoute() {
-		return new Flight();
+	protected Route createRoute(Vehicle vehicle, Company company, String id, List<Port> ports, LocalDateTime departureTime, LocalDateTime arrivalTime) {
+		try {
+			return new Flight(vehicle, company, id, ports, departureTime, arrivalTime);
+		}
+		catch (InvalidPortsException | InvalidTimeException e) {
+			return null;
+		}
 	}
 
-	protected Vehicle createVehicle() {
-		return new Airplane();
+	protected Vehicle createVehicle(String vehicleId, String model, Company company) {
+		return new Airplane(vehicleId, model, company);
 	}
 
 }

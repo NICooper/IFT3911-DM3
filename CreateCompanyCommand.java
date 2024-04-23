@@ -2,7 +2,7 @@ public class CreateCompanyCommand {
 	private final Application application;
 	private final TravelFactory travelFactory;
 	private final String id;
-	private final Float price;
+	private final float price;
 	private Company createdCompany;
 
 	/**
@@ -11,7 +11,7 @@ public class CreateCompanyCommand {
 	 * @param id
 	 * @param price
 	 */
-	public CreateCompanyCommand(Application application, TravelFactory travelFactory, String id, Float price) {
+	public CreateCompanyCommand(Application application, TravelFactory travelFactory, String id, float price) {
 		this.application = application;
 		this.travelFactory = travelFactory;
 		this.id = id;

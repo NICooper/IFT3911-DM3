@@ -8,12 +8,13 @@ public class DeletePortCommand implements Command {
 		this.application = application;
 	}
 
-	public void undo() {
-		application.addPort(port);
+	public boolean undo() {
+		return application.addPort(port);
 	}
 
-	public void execute() {
+	public boolean execute() {
 		application.deletePort(this.port);
+		return true;
 	}
 
 }

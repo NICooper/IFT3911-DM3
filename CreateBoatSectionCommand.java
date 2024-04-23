@@ -1,7 +1,7 @@
 public class CreateBoatSectionCommand implements Command{
 
 	private Vehicle vehicle;
-	private Float pricePercentage;
+	private float pricePercentage;
 	private BoatSectionType sectionType;
 	private int cabinNumber;
 
@@ -12,7 +12,7 @@ public class CreateBoatSectionCommand implements Command{
 	 * @param sectionType ..
 	 * @param cabinNumber ..
 	 */
-	CreateBoatSectionCommand(Vehicle vehicle, Float pricePercentage, BoatSectionType sectionType, int cabinNumber) {
+	CreateBoatSectionCommand(Vehicle vehicle, float pricePercentage, BoatSectionType sectionType, int cabinNumber) {
 		this.vehicle = vehicle;
 		this.pricePercentage = pricePercentage;
 		this.sectionType = sectionType;
@@ -20,12 +20,12 @@ public class CreateBoatSectionCommand implements Command{
 	}
 
 	@Override
-	public void execute() {
+	public boolean execute() {
 		vehicle.createBoatSection(this.pricePercentage, this.sectionType, this.cabinNumber);
 	}
 
 	@Override
-	public void undo() {
+	public boolean undo() {
 
 	}
 }

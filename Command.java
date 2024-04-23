@@ -1,7 +1,7 @@
 public interface Command {
 
-	void execute();
+	boolean execute();
 
-	void undo();
+	boolean undo();
 
 }

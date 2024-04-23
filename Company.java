@@ -2,11 +2,11 @@ public abstract class Company {
 
 	TravelFactory factory;
 	private String companyId;
-	private Float price;
+	private float price;
 
-	public Company(String companyId, Float price) {
-		this.companyId = companyId;
-		this.price = price;
+	public Company(String companyId, float price) throws InvalidIdException {
+		setCompanyId(companyId);
+		setPrice(price);
 	}
 
 	public String getCompanyId() {
@@ -14,29 +14,33 @@ public abstract class Company {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param companyId
 	 */
-	public void setCompanyId(String companyId) {
-		this.companyId = companyId;
+	public void setCompanyId(String companyId) throws InvalidIdException {
+		if (companyId.length() == 6) {
+			this.companyId = companyId;
+		} else {
+			throw new InvalidIdException("Company IDs must be 6 characters long.");
+		}
 	}
 
-	public Float getPrice() {
+	public float getPrice() {
 		return this.price;
 	}
 
 	/**
-	 * 
+	 *
 	 * @param price
 	 */
-	public void setPrice(Float price) {
+	public void setPrice(float price) {
 		this.price = price;
 	}
 
 	public abstract Company copy();
 
-	public void restore(Company company) {
-		this.companyId = company.companyId;
-		this.price = company.price;
+	public void restore(Company company) throws InvalidIdException {
+		setCompanyId(company.companyId);
+		setPrice(company.price);
 	}
 }

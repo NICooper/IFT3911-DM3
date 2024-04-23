@@ -1,9 +1,14 @@
 public class AirLine extends Company {
-    public AirLine(String companyId, Float price) {
+    public AirLine(String companyId, float price) throws InvalidIdException {
         super(companyId, price);
     }
 
     public Company copy() {
-        return new AirLine(this.getCompanyId(), this.getPrice());
+        try {
+            return new AirLine(this.getCompanyId(), this.getPrice());
+        }
+        catch (InvalidIdException e) {
+            return null;
+        }
     }
 }

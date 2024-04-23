@@ -7,6 +7,12 @@ public abstract class Vehicle {
 	private Company company;
 
 	private ArrayList<Section> sections;
+	
+	public Vehicle(String vehicleId, String model, Company company) {
+		this.vehicleId = vehicleId;
+		this.model = model;
+		this.company = company;
+	}
 
 
 	public ArrayList<Section> getSections() {
@@ -57,18 +63,26 @@ public abstract class Vehicle {
 		this.company = company;
 	}
 
-	public void createBoatSection(Float pricePercentage, BoatSectionType sectionType, int cabinNumber) {
-		BoatSection b_section = new BoatSection(this, pricePercentage, sectionType, cabinNumber);
+	public void createBoatSection(float pricePercentage, BoatSectionType sectionType, int cabinCount) {
+		BoatSection b_section = new BoatSection(this, sectionType, cabinCount);
 		addSection(b_section);
 	}
 
-	public void createPlaneSection(Float pricePercentage, int rows, int columns, Repartition repartition, PlaneSectionType sectionType){
-		PlaneSection p_section = new PlaneSection(this, pricePercentage, rows, columns, repartition, sectionType);
+	public void createPlaneSection(float pricePercentage, int rows, int columns, Repartition repartition, PlaneSectionType sectionType){
+		PlaneSection p_section = new PlaneSection(this, rows, repartition, sectionType);
 		addSection(p_section);
 	}
 
-	public void createTrainSection(Float pricePercentage, TrainSectionType sectionType, int rows, int columns) {
-		TrainSection t_section = new TrainSection(this, pricePercentage, sectionType, rows, columns);
+	public void createTrainSection(float pricePercentage, TrainSectionType sectionType, int rows, int columns) {
+		TrainSection t_section = new TrainSection(this, sectionType, rows);
 		addSection(t_section);
+	}
+
+	public abstract Vehicle copy();
+
+	public void restore(Vehicle vehicle) {
+		setVehicleId(vehicle.vehicleId);
+		setModel(vehicle.model);
+		setCompany(vehicle.company);
 	}
 }

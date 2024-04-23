@@ -2,12 +2,10 @@ public abstract class Port {
 
 	private String portId;
 	private String city;
-	private Company company;
 
-	public Port(String portId, String city, Company company) {
-		this.portId = portId;
-		this.city = city;
-		this.company = company;
+	public Port(String portId, String city) throws InvalidIdException {
+		setPortId(portId);
+		setCity(city);
 	}
 
 	public String getPortId() {
@@ -18,7 +16,10 @@ public abstract class Port {
 	 *
 	 * @param portId
 	 */
-	public void setPortId(String portId) {
+	public void setPortId(String portId) throws InvalidIdException {
+		if (portId.trim().length() != 3) {
+			throw new InvalidIdException("A port's ID must be exactly 3 characters long.");
+		}
 		this.portId = portId;
 	}
 
@@ -34,24 +35,11 @@ public abstract class Port {
 		this.city = city;
 	}
 
-	public Company getCompany() {
-		return this.company;
-	}
-
-	/**
-	 *
-	 * @param company
-	 */
-	public void setCompany(Company company) {
-		this.company = company;
-	}
-
 	public abstract Port copy();
 
-	public void restore(Port port) {
-		this.portId = port.portId;
-		this.city = port.city;
-		this.company = port.company;
+	public void restore(Port port) throws InvalidIdException {
+		setPortId(port.portId);
+		setCity(port.city);
 	}
 
 }

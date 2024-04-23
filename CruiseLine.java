@@ -1,9 +1,13 @@
 public class CruiseLine extends Company {
-    public CruiseLine(String companyId, Float price) {
+    public CruiseLine(String companyId, float price) throws InvalidIdException {
         super(companyId, price);
     }
 
     public Company copy() {
-        return new CruiseLine(this.getCompanyId(), this.getPrice());
+        try {
+            return new CruiseLine(this.getCompanyId(), this.getPrice());
+        } catch (InvalidIdException e) {
+            return null;
+        }
     }
 }

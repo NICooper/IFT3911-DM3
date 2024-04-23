@@ -1,10 +1,15 @@
 public class TrainStation extends Port {
 
-    public TrainStation(String portId, String city, Company company) {
-        super(portId, city, company);
+    public TrainStation(String portId, String city) throws InvalidIdException {
+        super(portId, city);
     }
 
-    public AirPort copy() {
-        return new AirPort(getPortId(), getCity(), getCompany());
+    public TrainStation copy() {
+        try {
+            return new TrainStation(getPortId(), getCity());
+        }
+        catch (InvalidIdException e) {
+            return null;
+        }
     }
 }

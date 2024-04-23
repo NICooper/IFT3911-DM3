@@ -2,15 +2,12 @@ public class BoatSection extends Section {
 
 	private Vehicle vehicle;
 	private BoatSectionType sectionType;
-	private int cabinNumbers;
-	private Float pricePercentage;
 
 
-	public BoatSection(Vehicle vehicle, Float pricePercentage, BoatSectionType sectionType, int cabinNumber) {
+	public BoatSection(Vehicle vehicle, BoatSectionType sectionType, int placeCount) {
 		this.vehicle = vehicle;
-		this.pricePercentage = pricePercentage;
 		this.sectionType = sectionType;
-		this.cabinNumbers = cabinNumber;
+		this.placeCount = placeCount;
 	}
 
 	public Vehicle getVehicle() {
@@ -21,17 +18,12 @@ public class BoatSection extends Section {
 		this.vehicle = vehicle;
 	}
 
-	@Override
-	public Float getPricePercentage() {
-		return pricePercentage;
-	}
-
-	public void setPricePercentage(Float pricePercentage) {
-		this.pricePercentage = pricePercentage;
-	}
-
 	public BoatSectionType getSectionType() {
 		return this.sectionType;
+	}
+
+	public void setPlaceCount(int placeCount) {
+		this.placeCount = placeCount;
 	}
 
 	/**
@@ -40,18 +32,6 @@ public class BoatSection extends Section {
 	 */
 	public void setSectionType(BoatSectionType sectionType) {
 		this.sectionType = sectionType;
-	}
-
-	public int getCabinNumbers() {
-		return this.cabinNumbers;
-	}
-
-	/**
-	 * 
-	 * @param cabinNumbers
-	 */
-	public void setCabinNumbers(int cabinNumbers) {
-		this.cabinNumbers = cabinNumbers;
 	}
 
 	@Override

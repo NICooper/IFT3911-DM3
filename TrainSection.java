@@ -1,18 +1,15 @@
 public class TrainSection extends Section {
 
 	private Vehicle vehicle;
-	private float pricePercentage;
 	private TrainSectionType sectionType;
 	private int rows;
-	private int columns;
+	private Repartition repartition = Repartition.S;
 
 
-	public TrainSection(Vehicle vehicle, float pricePercentage, TrainSectionType sectionType, int rows, int columns) {
+	public TrainSection(Vehicle vehicle, TrainSectionType sectionType, int rows) {
 		this.vehicle = vehicle;
-		this.pricePercentage = pricePercentage;
 		this.sectionType = sectionType;
 		this.rows = rows;
-		this.columns = columns;
 	}
 
 	public Vehicle getVehicle() {
@@ -44,17 +41,6 @@ public class TrainSection extends Section {
 	 */
 	public void setRows(int rows) {
 		this.rows = rows;
-	}
-
-	public int getColumns() {
-		return this.columns;
-	}
-
-	/**
-	 * @param columns
-	 */
-	public void setColumns(int columns) {
-		this.columns = columns;
 	}
 
 	@Override

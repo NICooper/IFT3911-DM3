@@ -1,20 +1,20 @@
 public class DeleteVehicleCommand {
 
-	private Application application;
-	private Vehicle vehicle;
+	private final Application application;
+	private final Vehicle vehicle;
 
 	public DeleteVehicleCommand(Application application, Vehicle vehicle) {
 		this.application = application;
 		this.vehicle = vehicle;
 	}
 
-	public void undo() {
-		// TODO - implement DeleteVehicleCommand.undo
-		throw new UnsupportedOperationException();
+	public boolean undo() {
+		return application.addVehicle(vehicle);
 	}
 
-	public void execute() {
+	public boolean execute() {
 		application.deleteVehicle(this.vehicle);
+		return true;
 	}
 
 }

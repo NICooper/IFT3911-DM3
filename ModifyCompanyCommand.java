@@ -5,7 +5,6 @@ public class ModifyCompanyCommand implements Command {
 	private final Company company;
 	private Company companyMemento;
 
-
 	public ModifyCompanyCommand(Application application, Company company, String newId, float newPrice) {
 		this.application = application;
 		this.company = company;
@@ -13,16 +12,25 @@ public class ModifyCompanyCommand implements Command {
 		this.newPrice = newPrice;
 	}
 
-	public void undo() {
-		company.restore(companyMemento);
-		application.modifyCompany(company);
+	public boolean undo() {
+		try {
+			company.restore(companyMemento);
+		} catch (InvalidIdException e) {
+			return false;
+		}
+		return application.modifyCompany(company);
 	}
 
-	public void execute() {
+	public boolean execute() {
 		companyMemento = company.copy();
-		company.setCompanyId(newId);
+		try {
+			company.setCompanyId(newId);
+		}
+		catch (InvalidIdException e) {
+			return false;
+		}
 		company.setPrice(newPrice);
-		application.modifyCompany(company);
+		return application.modifyCompany(company);
 	}
 
 }

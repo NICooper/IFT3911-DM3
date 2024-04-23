@@ -4,26 +4,31 @@ public class ModifyPortCommand {
 	private Port portMemento;
 	private final String newId;
 	private final String newCity;
-	private final Company newCompany;
 
-	public ModifyPortCommand(Application application, Port port, String newId, String newCity, Company newCompany) {
+	public ModifyPortCommand(Application application, Port port, String newId, String newCity) {
 		this.application = application;
 		this.port = port;
 		this.newId = newId;
 		this.newCity = newCity;
-		this.newCompany = newCompany;
 	}
 
-	public void undo() {
-		port.restore(portMemento);
-		application.modifyPort(port);
+	public boolean undo() {
+		try {
+			port.restore(portMemento);
+		} catch (InvalidIdException e) {
+			return false;
+		}
+		return application.modifyPort(port);
 	}
 
-	public void execute() {
+	public boolean execute() {
 		portMemento = port.copy();
-		port.setPortId(newId);
+		try {
+			port.setPortId(newId);
+		} catch (InvalidIdException e) {
+			return false;
+		}
 		port.setCity(newCity);
-		port.setCompany(newCompany);
-		application.modifyPort(port);
+		return application.modifyPort(port);
 	}
 }

@@ -37,58 +37,98 @@ public class Application implements Subject, ApplicationGetters {
 		admins.add(admin);
 	}
 
-	public void addPort(Port port) {
-		ports.add(port);
-		notifyObservers();
+	public boolean addPort(Port port) {
+		if (ports.stream().noneMatch(p ->
+				p.getClass() == port.getClass() &&
+				p.getPortId().equals(port.getPortId()))
+		) {
+			ports.add(port);
+			notifyObservers();
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
-	public void addCompany(Company company) {
-		companies.add(company);
-		notifyObservers();
+	public boolean addCompany(Company company) {
+		if (companies.stream().noneMatch(c ->
+				c.getClass() == company.getClass() &&
+				c.getCompanyId().equals(company.getCompanyId()))
+		) {
+			companies.add(company);
+			notifyObservers();
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
-	public void addRoute(Route route) {
+	public boolean addRoute(Route route) {
 		routes.add(route);
 		notifyObservers();
+		return true;
 	}
 
-	public void addReservation(Reservation reservation) {
+	public boolean addReservation(Reservation reservation) {
 		reservations.add(reservation);
 		notifyObservers();
+		return true;
 	}
 
-	public void addVehicle(Vehicle vehicle) {
+	public boolean addVehicle(Vehicle vehicle) {
 		vehicles.add(vehicle);
 		notifyObservers();
+		return true;
 	}
 
 	public void addClient(Client client) {
 		clients.add(client);
 	}
 
-	public void modifyPort(Port port) {
-		// Would save the modified data to a database
-		notifyObservers();
+	public boolean modifyPort(Port port) {
+		if (ports.stream().noneMatch(p ->
+				p != port &&
+				p.getPortId().equalsIgnoreCase(port.getPortId()))
+		) {
+			notifyObservers();
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
-	public void modifyCompany(Company company) {
-		// Would save the modified data to a database
-		notifyObservers();
+	public boolean modifyCompany(Company company) {
+		if (companies.stream().noneMatch(c ->
+				c != company &&
+				c.getCompanyId().equalsIgnoreCase(company.getCompanyId()))
+		) {
+			notifyObservers();
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
-	public void modifyRoute(Route route) {
+	public boolean modifyRoute(Route route) {
 		// Would save the modified data to a database
 		notifyObservers();
+		return true;
 	}
 
-	public void modifyReservation(Reservation reservation) {
+	public boolean modifyReservation(Reservation reservation) {
 		// Would save the modified data to a database
 		notifyObservers();
+		return true;
 	}
 
-	public void modifyVehicle(Vehicle vehicle) {
+	public boolean modifyVehicle(Vehicle vehicle) {
 		// Would save the modified data to a database
 		notifyObservers();
+		return true;
 	}
 
 	public void deletePort(Port port){
@@ -157,7 +197,7 @@ public class Application implements Subject, ApplicationGetters {
 	}
 
 	@Override
-	public void notifyObservers(Class stateClass, List<Object> state) {
+	public void notifyObservers() {
 		updateNews();
 		for(Observer observer : observers){
 			observer.update(this.news);

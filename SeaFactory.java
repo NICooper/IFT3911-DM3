@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.util.List;
+
 public class SeaFactory extends TravelFactory {
 
 	private static SeaFactory instance;
@@ -14,19 +17,32 @@ public class SeaFactory extends TravelFactory {
 	}
 
 	protected Company createCompany(String companyId, float price) {
-		return new CruiseLine(companyId, price);
+		try {
+			return new CruiseLine(companyId, price);
+		} catch (InvalidIdException e) {
+			return null;
+		}
 	}
 
-	protected Port createPort(String portId, String city, Company company) {
-		return new SeaPort(portId, city, company);
+	protected Port createPort(String portId, String city) {
+		try {
+			return new SeaPort(portId, city);
+		} catch (InvalidIdException e) {
+			return null;
+		}
 	}
 
-	protected Route createRoute() {
-		return new Cruise();
+	protected Route createRoute(Vehicle vehicle, Company company, String id, List<Port> ports, LocalDateTime departureTime, LocalDateTime arrivalTime) {
+		try {
+			return new Cruise(vehicle, company, id, ports, departureTime, arrivalTime);
+		}
+		catch (InvalidPortsException | InvalidTimeException e) {
+			return null;
+		}
 	}
 
-	protected Vehicle createVehicle() {
-		return new Boat();
+	protected Vehicle createVehicle(String vehicleId, String model, Company company) {
+		return new Boat(vehicleId, model, company);
 	}
 
 }

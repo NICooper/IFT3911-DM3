@@ -1,21 +1,19 @@
 public class DeleteRouteCommand {
-
-	private Application application;
-	private Route route;
-
+	private final Application application;
+	private final Route route;
 
 	public DeleteRouteCommand(Application application, Route route) {
 		this.application = application;
 		this.route = route;
 	}
 
-	public void undo() {
-		// TODO - implement DeleteRouteCommand.undo
-		throw new UnsupportedOperationException();
+	public boolean undo() {
+		return application.addRoute(route);
 	}
 
-	public void execute() {
+	public boolean execute() {
 		application.deleteRoute(this.route);
+		return true;
 	}
 
 }

@@ -8,12 +8,13 @@ public class DeleteCompanyCommand {
 		this.application = application;
 	}
 
-	public void undo() {
-		application.addCompany(company);
+	public boolean undo() {
+		return application.addCompany(company);
 	}
 
-	public void execute() {
+	public boolean execute() {
 		application.deleteCompany(this.company);
+		return true;
 	}
 
 }

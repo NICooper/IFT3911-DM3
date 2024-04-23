@@ -1,10 +1,15 @@
 public class SeaPort extends Port {
 
-    public SeaPort(String portId, String city, Company company) {
-        super(portId, city, company);
+    public SeaPort(String portId, String city) throws InvalidIdException {
+        super(portId, city);
     }
 
-    public AirPort copy() {
-        return new AirPort(getPortId(), getCity(), getCompany());
+    public SeaPort copy() {
+        try {
+            return new SeaPort(getPortId(), getCity());
+        }
+        catch (InvalidIdException e) {
+            return null;
+        }
     }
 }

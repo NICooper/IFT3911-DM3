@@ -1,13 +1,13 @@
 public class CreateTrainSectionCommand {
 
 	private Vehicle vehicle;
-	private Float pricePercentage;
+	private float pricePercentage;
 	private TrainSectionType sectionType;
 	private int rows;
 	private int columns;
 
 
-	public CreateTrainSectionCommand(Vehicle vehicle, Float pricePercentage, TrainSectionType sectionType, int rows, int columns) {
+	public CreateTrainSectionCommand(Vehicle vehicle, float pricePercentage, TrainSectionType sectionType, int rows, int columns) {
 		this.vehicle = vehicle;
 		this.pricePercentage = pricePercentage;
 		this.sectionType = sectionType;

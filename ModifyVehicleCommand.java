@@ -4,33 +4,29 @@ public class ModifyVehicleCommand implements Command {
 	private String id;
 	private String model;
 	private Company company;
+	private Vehicle vehicle;
+	private Vehicle vehicleMemento;
 
 
-	public ModifyVehicleCommand(Application application, String id, String model, Company company) {
+	public ModifyVehicleCommand(Application application, Vehicle vehicle, String id, String model, Company company) {
 		this.application = application;
 		this.id = id;
 		this.model = model;
 		this.company = company;
+		this.vehicle = vehicle;
 	}
 
-	public void undo() {
-		// TODO - implement ModifyVehicleCommand.undo
-		throw new UnsupportedOperationException();
+	public boolean undo() {
+		vehicle.restore(vehicleMemento);
+		return application.modifyVehicle(vehicle);
 	}
 
-	public void execute() {
-		int i;
-		boolean found = false;
-		for(i = 0; i<application.vehicles.size(); i++){
-			if(application.vehicles.get(i).getVehicleId().equals(this.id)){
-				application.vehicles.get(i).setCompany(this.company);
-				application.vehicles.get(i).setModel(this.model);
-				found = true;
-			}
-		}
-		if(!found){
-			System.out.println("Vehicle not found");
-		}
+	public boolean execute() {
+		vehicleMemento = vehicle.copy();
+		vehicle.setVehicleId(id);
+		vehicle.setModel(model);
+		vehicle.setCompany(company);
+		return application.modifyVehicle(vehicle);
 	}
 
 }

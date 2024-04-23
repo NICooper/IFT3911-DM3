@@ -3,7 +3,7 @@ public abstract class Seat {
 	Payment payment;
 	Client passenger;
 	private String number;
-	private Float price;
+	private float price;
 	private Reservation reservation;
 	private SeatState currentState;
 
@@ -29,7 +29,7 @@ public abstract class Seat {
 		throw new UnsupportedOperationException();
 	}
 
-	public Float getPrice() {
+	public float getPrice() {
 		return this.price;
 	}
 
@@ -37,7 +37,7 @@ public abstract class Seat {
 	 * 
 	 * @param price
 	 */
-	public void setPrice(Float price) {
+	public void setPrice(float price) {
 		this.price = price;
 	}
 

@@ -3,7 +3,6 @@ public class CreatePortCommand {
 	private final TravelFactory travelFactory;
 	private final String id;
 	private final String city;
-	private final Company company;
 	private Port createdPort;
 
 	/**
@@ -12,24 +11,23 @@ public class CreatePortCommand {
 	 * @param travelFactory
 	 * @param id
 	 * @param city
-	 * @param company
 	 *
 	 */
-	public CreatePortCommand(Application application, TravelFactory travelFactory, String id, String city, Company company) {
+	public CreatePortCommand(Application application, TravelFactory travelFactory, String id, String city) {
 		this.application = application;
 		this.travelFactory = travelFactory;
 		this.id = id;
 		this.city = city;
-		this.company = company;
 	}
 
-	public void undo() {
+	public boolean undo() {
 		application.deletePort(createdPort);
+		return true;
 	}
 
-	public void execute() {
-		createdPort = travelFactory.createPort(id, city, company);
-		application.addPort(createdPort);
+	public boolean execute() {
+		createdPort = travelFactory.createPort(id, city);
+		return application.addPort(createdPort);
 	}
 
 }

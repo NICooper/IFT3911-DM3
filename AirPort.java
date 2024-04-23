@@ -1,10 +1,15 @@
 public class AirPort extends Port {
 
-    public AirPort(String portId, String city, Company company) {
-        super(portId, city, company);
+    public AirPort(String portId, String city) throws InvalidIdException {
+        super(portId, city);
     }
 
     public AirPort copy() {
-        return new AirPort(getPortId(), getCity(), getCompany());
+        try {
+            return new AirPort(getPortId(), getCity());
+        }
+        catch (InvalidIdException e) {
+            return null;
+        }
     }
 }

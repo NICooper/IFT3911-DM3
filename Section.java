@@ -1,13 +1,11 @@
-import java.util.*;
-
 public abstract class Section {
 
-	Collection<Seat> seats;
-	private Float pricePercentage;
+	protected int placeCount;
 
-	public Float getPricePercentage() {
-		return this.pricePercentage;
+	public int getPlaceCount() {
+		return placeCount;
 	}
+
 	public abstract float getSectionPrice();
 
 }

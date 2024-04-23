@@ -1,60 +1,52 @@
 import java.sql.Time;
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 public class ModifyRouteCommand implements Command {
 
-	private Application application;
-	private String id;
-	private Vehicle vehicle;
-	private Date departureDate;
-	private Date arrivalDate;
-	private Type type;
-	private float durationHours;
-	private Company company;
-	private Port departurePort;
-	private Port arrivalPort;
-	private Time departureTime;
-	private Time arrivalTime;
+	private final Application application;
+	private final Vehicle vehicle;
+	private final Company company;
+	private final String id;
+	private final List<Port> ports;
+	private final LocalDateTime arrivalTime;
+	private final LocalDateTime departureTime;
+	private final Route route;
+	private Route routeMemento;
 
-	public ModifyRouteCommand(Application application, String id, Vehicle vehicle, Date departureDate, Date arrivalDate, Type type, float durationHours, Company company, Port departurePort, Port arrivalPort, Time departureTime, Time arrivalTime) {
+	public ModifyRouteCommand(Application application, Route route, Vehicle vehicle, Company company, String id, List<Port> ports, LocalDateTime arrivalTime, LocalDateTime departureTime) {
 		this.application = application;
-		this.id = id;
+		this.route = route;
 		this.vehicle = vehicle;
-		this.departureDate = departureDate;
-		this.arrivalDate = arrivalDate;
-		this.type = type;
-		this.durationHours = durationHours;
 		this.company = company;
-		this.departurePort = departurePort;
-		this.arrivalPort = arrivalPort;
-		this.departureTime = departureTime;
+		this.id = id;
+		this.ports = ports;
 		this.arrivalTime = arrivalTime;
+		this.departureTime = departureTime;
 	}
 
-	public void undo() {
-		// TODO - implement ModifyRouteCommand.undo
-		throw new UnsupportedOperationException();
+	public boolean undo() {
+		try {
+			route.restore(routeMemento);
+		} catch (InvalidTimeException | InvalidPortsException e) {
+			return false;
+		}
+		return application.modifyRoute(route);
 	}
 
-	public void execute() {
-		int i;
-		boolean found = false;
-		for(i = 0; i<application.routes.size(); i++){
-			if(application.routes.get(i).getId().equals(this.id)){
-				application.routes.get(i).setArrivalDate(this.arrivalDate);
-				application.routes.get(i).setDepartureDate(this.departureDate);
-				application.routes.get(i).setArrivalPort(this.arrivalPort);
-				application.routes.get(i).setDeparturePort(this.departurePort);
-				application.routes.get(i).setVehicle(this.vehicle);
-				application.routes.get(i).setArrivalTime(this.arrivalTime);
-				application.routes.get(i).setDepartureTime(this.departureTime);
-				application.routes.get(i).setCompany(this.company);
-				found = true;
-			}
+	public boolean execute() {
+		routeMemento = route.copy();
+		try {
+			route.setVehicle(vehicle);
+			route.setCompany(company);
+			route.setId(id);
+			route.setPorts(ports);
+			route.setDepartureAndArrivalTime(departureTime, arrivalTime);
+		} catch (InvalidPortsException | InvalidTimeException e) {
+			return false;
 		}
-		if(!found){
-			System.out.println("Route not found");
-		}
+		return application.modifyRoute(route);
 	}
 
 

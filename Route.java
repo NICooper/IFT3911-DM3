@@ -1,36 +1,23 @@
-import java.sql.Time;
-import java.util.ArrayList;
-import java.util.Date;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.List;
 
-public abstract class Route {
+public abstract class Route implements IVisitable {
 
-	Vehicle vehicle;
-	private Date departureDate;
-	private Date arrivalDate;
-	private Type type;
-	private String id;
-	private float durationHours;
-	private Company company;
-	private Port departurePort;
-	private Port arrivalPort;
-	private ArrayList<Port> intermidaryPorts;
-	private Time departureTime;
-	private Time arrivalTime;
+	protected Vehicle vehicle;
+	protected LocalDateTime departureTime;
+	protected LocalDateTime arrivalTime;
+	protected String id;
+	protected Duration duration;
+	protected Company company;
+	protected List<Port> ports;
 
-	public Time getDepartureTime() {
-		return departureTime;
-	}
-
-	public void setDepartureTime(Time departureTime) {
-		this.departureTime = departureTime;
-	}
-
-	public Time getArrivalTime() {
-		return arrivalTime;
-	}
-
-	public void setArrivalTime(Time arrivalTime) {
-		this.arrivalTime = arrivalTime;
+	public Route(Vehicle vehicle, Company company, String id, List<Port> ports, LocalDateTime departureTime, LocalDateTime arrivalTime) throws InvalidPortsException, InvalidTimeException {
+		setVehicle(vehicle);
+		setCompany(company);
+		setId(id);
+		setDepartureAndArrivalTime(departureTime, arrivalTime);
+		setPorts(ports);
 	}
 
 	public Vehicle getVehicle() {
@@ -42,55 +29,56 @@ public abstract class Route {
 	}
 
 	public Port getDeparturePort() {
-		return departurePort;
-	}
-
-	public void setDeparturePort(Port departurePort) {
-		this.departurePort = departurePort;
+		return ports.get(0);
 	}
 
 	public Port getArrivalPort() {
-		return arrivalPort;
+		return ports.get(ports.size() - 1);
 	}
 
-	public void setArrivalPort(Port arrivalPort) {
-		this.arrivalPort = arrivalPort;
+	public List<Port> getIntermediaryPorts() {
+		return ports.subList(1, ports.size() - 1);
 	}
 
-	public Date getDepartureDate() {
-		return this.departureDate;
+	public void setPorts(List<Port> ports) throws InvalidPortsException {
+		if (ports.size() < 2) {
+			throw new InvalidPortsException("At least two ports are required.");
+		} else {
+			this.ports = ports;
+		}
 	}
 
-	/**
-	 * 
-	 * @param departureDate
-	 */
-	public void setDepartureDate(Date departureDate) {
-		this.departureDate = departureDate;
+	public LocalDateTime getDepartureTime() {
+		return this.departureTime;
 	}
 
-	public Date getArrivalDate() {
-		return this.arrivalDate;
-	}
-
-	/**
-	 * 
-	 * @param arrivalDate
-	 */
-	public void setArrivalDate(Date arrivalDate) {
-		this.arrivalDate = arrivalDate;
-	}
-
-	public Type getType() {
-		return this.type;
+	public LocalDateTime getArrivalTime() {
+		return this.arrivalTime;
 	}
 
 	/**
-	 * 
-	 * @param type
+	 *
+	 * @param departureTime
 	 */
-	public void setType(Type type) {
-		this.type = type;
+	public void setDepartureAndArrivalTime(LocalDateTime departureTime, LocalDateTime arrivalTime) throws InvalidTimeException {
+		if (departureTime != null && arrivalTime != null) {
+			this.departureTime = departureTime;
+			this.arrivalTime = arrivalTime;
+			updateDurationHours();
+		}
+		else {
+			throw new InvalidTimeException("");
+		}
+	}
+
+	public Duration getDuration() {
+		return this.duration;
+	}
+
+	private void updateDurationHours() {
+		if (departureTime != null && arrivalTime != null) {
+			duration = Duration.between(departureTime, arrivalTime);
+		}
 	}
 
 	public Company getCompany() {
@@ -98,7 +86,7 @@ public abstract class Route {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param company
 	 */
 	public void setCompany(Company company) {
@@ -110,23 +98,27 @@ public abstract class Route {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param id
 	 */
 	public void setId(String id) {
 		this.id = id;
 	}
 
-	public Float getDurationHours() {
-		return this.durationHours;
+	public abstract Route copy();
+
+	public void restore(Route route) throws InvalidPortsException, InvalidTimeException {
+		setVehicle(route.vehicle);
+		setCompany(route.company);
+		setId(route.id);
+		setDepartureAndArrivalTime(departureTime, arrivalTime);
+		setPorts(route.ports);
 	}
 
 	/**
-	 * 
-	 * @param durationHours
+	 *
+	 * @param v
 	 */
-	public void setDurationHours(Float durationHours) {
-		this.durationHours = durationHours;
-	}
+	public abstract void accept(Visitor v);
 
 }
