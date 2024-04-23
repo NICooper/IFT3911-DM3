@@ -24,7 +24,7 @@ public class Menus {
         int choix = scanner.nextInt();
         switch (choix) {
             case 1 -> afficherMenuAdmin();
-            case 2 -> afficherMenuClient();
+            //case 2 -> afficherMenuClient();
             case 0 -> {
                 System.out.println("Au revoir !");
                 System.exit(0);
@@ -45,8 +45,8 @@ public class Menus {
         int choix = scanner.nextInt();
         switch (choix) {
             case 1 -> gererEntitesDeVoyage();
-            case 2 -> admin.gererPrixDesSiegesOuCabines();
-            case 3 -> admin.consulterVolsItinerairesTrajets();
+            //case 2 -> admin.gererPrixDesSiegesOuCabines();
+            //case 3 -> admin.consulterVolsItinerairesTrajets();
             default -> System.out.println("Option invalide !");
         }
     }
@@ -67,19 +67,20 @@ public class Menus {
     private void passerParametresAvions() {
         String id;
         String model;
-        Company company;
+        Company company = null;
         System.out.println("Rentrez l'id que vous vouler\n");
         id = scanner.nextLine();
+        id = scanner.nextLine();
+        System.out.println("id is" + id);
         System.out.println("Rentrez le model que vous vouler\n");
         model = scanner.nextLine();
         String companyId;
         System.out.println("Rentrez l'id de la compagnie que vous vouler\n");
         companyId = scanner.nextLine();
         boolean found = false;
-        Company company_to_get_vehicle = null;
         for (int i = 0 ; i < application.getCompanies().size(); i++){
             if(application.getCompanies().get(i).getCompanyId().equals(companyId)){
-                company_to_get_vehicle = application.getCompanies().get(i);
+                company = application.getCompanies().get(i);
                 found = true;
             }
         }
@@ -88,15 +89,16 @@ public class Menus {
             gererEntitesDeVoyage();
         }
         else{
-            admin.setCommand(new CreateVehicleCommand(this.application, AirFactory.getInstance() ,id, model, company_to_get_vehicle));
+            admin.setCommand(new CreateVehicleCommand(this.application, AirFactory.getInstance() ,id, model, company));
             admin.exec();
+            System.out.println("Ajouter avec succes");
         }
 
     }
 
 
 
-
+    /*
     public void afficherMenuClient () {
             System.out.println("Menu Client :");
             System.out.println("1. Rechercher des vols, itinéraires ou trajets");
@@ -111,7 +113,7 @@ public class Menus {
                 default -> System.out.println("Option invalide !");
             }
         }
-
+        */
         // autres..
 
     public static void main (String[]args){
