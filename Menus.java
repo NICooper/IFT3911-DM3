@@ -134,34 +134,6 @@ public class Menus {
     
     
     
-    
-    private void modifierVehicule(TravelFactory travelFactory) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Modifier un véhicule :\n");
-    
-        System.out.print("Entrez l'ID du véhicule à modifier : ");
-        String id = scanner.nextLine();
-    
-        // Obtenir le véhicule à modifier
-        Vehicle vehicle = travelFactory.getVehicleById(id);
-        if (vehicle == null) {
-            System.out.println("Le véhicule avec l'ID fourni n'existe pas.");
-            return;
-        }
-    
-        System.out.print("Entrez le nouveau modèle du véhicule : ");
-        String newModel = scanner.nextLine();
-    
-        // Modification du modèle du véhicule
-        vehicle.setModel(newModel);
-        boolean success = travelFactory.updateVehicle(vehicle);
-        if (success) {
-            System.out.println("Véhicule modifié avec succès !");
-        } else {
-            System.out.println("Échec de la modification du véhicule.");
-        }
-    }
-    
     private void gererEntitesDeVoyage(TravelFactory travelFactory) {
         System.out.println("Menu de gestion des entites de voyages\n");
         System.out.println("1. Ajouter un véhicule\n");
@@ -205,5 +177,4 @@ public class Menus {
             }
         }
     }
-
 
