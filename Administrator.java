@@ -16,12 +16,22 @@ public class Administrator implements Observer{
 		this.news = news;
 	}
 
+	private Command command;
+
 	private AdminView adminView;
 	//private State state;
 
 	public void undo() {
 		var topCommand = commandHistory.pop();
 		topCommand.undo();
+	}
+
+	public void setCommand(Command command) {
+		this.command = command;
+	}
+
+	public void exec(){
+		command.execute();
 	}
 
 	@Override
