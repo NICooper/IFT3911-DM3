@@ -111,6 +111,14 @@ public abstract class Route implements IVisitable, ProtoMemento<Route> {
 		this.seats = seats;
 	}
 
+	public Seat getAvailableSeat(SectionType sectionType) {
+		return seats.stream().filter(s -> s.getSectionType() == sectionType && s.isAvailable()).findFirst().orElse(null);
+	}
+
+	public Seat getSeatById(String seatId) {
+		return seats.stream().filter(s -> s.getSeatId().equals(seatId)).findFirst().orElse(null);
+	}
+
 	public int getTotalSeatCount() {
 		return seats.size();
 	}

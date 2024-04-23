@@ -7,6 +7,16 @@ public class RailRoad extends Route {
 		super(vehicle, company, id, ports, departureTime, arrivalTime);
 	}
 
+	public Seat getAvailableSeat(TrainSectionType sectionType, ColumnSeatType prefSeatType) {
+		var availableSeats = seats.stream().filter(s -> s.getSectionType() == sectionType).toList();
+		var preferredSeat = availableSeats.stream().filter(s -> ((PlaneSeat)s).getColumnSeatType() == prefSeatType).findFirst();
+		if (preferredSeat.isPresent()) {
+			return preferredSeat.get();
+		}
+		var bothSeat = availableSeats.stream().filter(s -> ((PlaneSeat)s).getColumnSeatType() == ColumnSeatType.Both).findFirst();
+		return bothSeat.orElseGet(() -> availableSeats.stream().findFirst().orElse(null));
+	}
+
 	@Override
 	public RailRoad copy() {
 		try {
