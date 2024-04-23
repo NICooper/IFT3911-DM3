@@ -1,4 +1,4 @@
-public enum PlaneSectionType {
+public enum PlaneSectionType implements SectionType {
 	F,
 	A,
 	P,

@@ -1,4 +1,4 @@
-public enum TrainSectionType {
+public enum TrainSectionType implements SectionType {
 	P,
 	E
 }

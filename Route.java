@@ -11,6 +11,7 @@ public abstract class Route implements IVisitable, ProtoMemento<Route> {
 	protected Duration duration;
 	protected Company company;
 	protected List<Port> ports;
+	protected List<Seat> seats;
 
 	public Route(Vehicle vehicle, Company company, String id, List<Port> ports, LocalDateTime departureTime, LocalDateTime arrivalTime) throws InvalidPortsException, InvalidTimeException {
 		setVehicle(vehicle);
@@ -18,6 +19,7 @@ public abstract class Route implements IVisitable, ProtoMemento<Route> {
 		setId(id);
 		setDepartureAndArrivalTime(departureTime, arrivalTime);
 		setPorts(ports);
+		setSeats(vehicle.generateSeats(company.getPrice()));
 	}
 
 	public Vehicle getVehicle() {
@@ -103,6 +105,29 @@ public abstract class Route implements IVisitable, ProtoMemento<Route> {
 	 */
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	private void setSeats(List<Seat> seats) {
+		this.seats = seats;
+	}
+
+	public int getTotalSeatCount() {
+		return seats.size();
+	}
+
+	public int getAvailableSeatCount() {
+		return (int) seats.stream().filter(Seat::isAvailable).count();
+	}
+
+	public int getTotalSeatCountOfType(SectionType sectionType) {
+		return (int) seats.stream().filter(s -> s.getSectionType() == sectionType).count();
+	}
+
+	public int getAvailableSeatCountOfType(SectionType sectionType) {
+		return (int) seats.stream().filter(s ->
+				s.getSectionType() == sectionType &&
+				s.isAvailable()
+		).count();
 	}
 
 	public abstract ProtoMemento<Route> copy();

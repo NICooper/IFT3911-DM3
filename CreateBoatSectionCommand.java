@@ -26,7 +26,7 @@ public class CreateBoatSectionCommand implements Command {
 
 	@Override
 	public boolean execute() {
-		vehicle.createBoatSection(this.pricePercentage, this.sectionType, this.cabinNumber);
+//		vehicle.createBoatSection(this.pricePercentage, this.sectionType, this.cabinNumber);
 		return true;
 	}
 }

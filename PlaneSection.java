@@ -1,58 +1,16 @@
-public class PlaneSection extends Section {
+import java.util.ArrayList;
+import java.util.List;
 
-	private Vehicle vehicle;
-	private int rows;
-	private int columns;
-	private PlaneSectionType sectionType;
+public class PlaneSection extends Section {
 	private Repartition repartition;
 
-	public PlaneSection(Vehicle vehicle, int rows, Repartition repartition, PlaneSectionType sectionType) {
-		this.vehicle = vehicle;
-		this.rows = rows;
-		this.sectionType = sectionType;
+	public PlaneSection(int rows, PlaneSectionType sectionType, Repartition repartition) {
+		super(rows, sectionType);
 		this.repartition = repartition;
 	}
 
-	public Vehicle getVehicle() {
-		return vehicle;
-	}
-
-	public void setVehicle(Vehicle vehicle) {
-		this.vehicle = vehicle;
-	}
-
-	public int getRows() {
-		return this.rows;
-	}
-
-	/**
-	 * 
-	 * @param rows
-	 */
-	public void setRows(int rows) {
-		this.rows = rows;
-	}
-
-	public int getColumns() {
-		return this.columns;
-	}
-
-//	/**
-//	 *
-//	 * @param columns
-//	 */
-//	public void setColumns(Repartition repartition) {
-//		switch (repartition) {
-//			case
-//		}
-//	}
-
-	/**
-	 * 
-	 * @param sectionType
-	 */
-	public void setSectionType(PlaneSectionType sectionType) {
-		this.sectionType = sectionType;
+	public PlaneSection(int rows, PlaneSectionType sectionType) {
+		this(rows, sectionType, Repartition.S);
 	}
 
 	public Repartition getRepartition() {
@@ -68,17 +26,48 @@ public class PlaneSection extends Section {
 	}
 
 	@Override
-	public float getSectionPrice() {
-		switch (sectionType){
-			case A :
-				return (float) (0.75 * getVehicle().getCompany().getPrice());
-			case P :
-				return (float) (0.60 * getVehicle().getCompany().getPrice());
-			case E :
-				return (float) (0.50 * getVehicle().getCompany().getPrice());
-			default :
-				return getVehicle().getCompany().getPrice();
+	public List<Seat> generateSeats(float price) {
+		var columns = getRowOfSeatTypes();
+		char colLetter = 'A';
 
+		List<Seat> seats = new ArrayList<>();
+		for (var column : columns) {
+			for (int rowIdx = 1; rowIdx <= sectionUnitCount; rowIdx++) {
+				seats.add(new PlaneSeat(rowIdx, String.valueOf(colLetter), column, (PlaneSectionType) sectionType, price * getPricePercentage()));
+			}
+			colLetter++;
 		}
+		return seats;
+	}
+
+	public float getPricePercentage() {
+		return switch ((PlaneSectionType)this.sectionType) {
+			case A -> 0.75f;
+			case P -> 0.6f;
+			case E -> 0.5f;
+			default -> 1.0f;
+		};
+	}
+
+	private ColumnSeatType[] getRowOfSeatTypes() {
+		return switch (this.repartition) {
+			case L -> new ColumnSeatType[]{
+					ColumnSeatType.Window, ColumnSeatType.Neither, ColumnSeatType.Aisle,
+					ColumnSeatType.Aisle, ColumnSeatType.Neither, ColumnSeatType.Neither, ColumnSeatType.Aisle,
+					ColumnSeatType.Aisle, ColumnSeatType.Neither, ColumnSeatType.Window
+			};
+			case M -> new ColumnSeatType[]{
+					ColumnSeatType.Window, ColumnSeatType.Neither, ColumnSeatType.Aisle,
+					ColumnSeatType.Aisle, ColumnSeatType.Neither, ColumnSeatType.Window
+			};
+			case C -> new ColumnSeatType[]{
+					ColumnSeatType.Window, ColumnSeatType.Aisle,
+					ColumnSeatType.Aisle, ColumnSeatType.Window
+			};
+			default -> new ColumnSeatType[]{
+					ColumnSeatType.Both,
+					ColumnSeatType.Aisle, ColumnSeatType.Window
+			};
+		};
 	}
 }

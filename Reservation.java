@@ -37,4 +37,3 @@ public class Reservation implements SeatConfirmation, Validation {
 		return reservationNumber;
 	}
 }
-}

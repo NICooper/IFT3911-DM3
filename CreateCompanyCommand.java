@@ -18,13 +18,14 @@ public class CreateCompanyCommand {
 		this.price = price;
 	}
 
-	public void undo() {
+	public boolean undo() {
 		application.deleteCompany(createdCompany);
+		return true;
 	}
 
-	public void execute() {
+	public boolean execute() {
 		createdCompany = travelFactory.createCompany(this.id, this.price);
-		application.addCompany(createdCompany);
+		return application.addCompany(createdCompany);
 	}
 
 }

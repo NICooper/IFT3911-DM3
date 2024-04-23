@@ -1,18 +1,21 @@
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class Application implements Subject, ApplicationGetters {
 
-	private ArrayList<Observer> observers = new ArrayList<>();
-	private ArrayList<Administrator> admins = new ArrayList<>();
-	private ArrayList<Port> ports = new ArrayList<>();
-	private ArrayList<Company> companies = new ArrayList<>();
-	private ArrayList<Route> routes = new ArrayList<>();
-	private ArrayList<Reservation> reservations = new ArrayList<>();
-	private ArrayList<Vehicle> vehicles = new ArrayList<>();
-	private ArrayList<Client> clients = new ArrayList<>();
+	private final ArrayList<Observer> observers = new ArrayList<>();
+	private final ArrayList<Administrator> admins = new ArrayList<>();
+	private final ArrayList<Port> ports = new ArrayList<>();
+	private final ArrayList<Company> companies = new ArrayList<>();
+	private final ArrayList<Route> routes = new ArrayList<>();
+	private final ArrayList<Reservation> reservations = new ArrayList<>();
+	private final ArrayList<Vehicle> vehicles = new ArrayList<>();
+	private final ArrayList<Client> clients = new ArrayList<>();
 	private ArrayList<Object>[] news = new ArrayList[7];
 
-
+	public Application() {
+		loadDatabase();
+	}
 
 	public ArrayList<Object>[] getNews() {
 		return news;
@@ -40,13 +43,12 @@ public class Application implements Subject, ApplicationGetters {
 	public boolean addPort(Port port) {
 		if (ports.stream().noneMatch(p ->
 				p.getClass() == port.getClass() &&
-				p.getPortId().equals(port.getPortId()))
+						p.getPortId().equals(port.getPortId()))
 		) {
 			ports.add(port);
 			notifyObservers();
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
 	}
@@ -54,13 +56,12 @@ public class Application implements Subject, ApplicationGetters {
 	public boolean addCompany(Company company) {
 		if (companies.stream().noneMatch(c ->
 				c.getClass() == company.getClass() &&
-				c.getCompanyId().equals(company.getCompanyId()))
+						c.getCompanyId().equals(company.getCompanyId()))
 		) {
 			companies.add(company);
 			notifyObservers();
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
 	}
@@ -90,12 +91,11 @@ public class Application implements Subject, ApplicationGetters {
 	public boolean modifyPort(Port port) {
 		if (ports.stream().noneMatch(p ->
 				p != port &&
-				p.getPortId().equalsIgnoreCase(port.getPortId()))
+						p.getPortId().equalsIgnoreCase(port.getPortId()))
 		) {
 			notifyObservers();
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
 	}
@@ -103,12 +103,11 @@ public class Application implements Subject, ApplicationGetters {
 	public boolean modifyCompany(Company company) {
 		if (companies.stream().noneMatch(c ->
 				c != company &&
-				c.getCompanyId().equalsIgnoreCase(company.getCompanyId()))
+						c.getCompanyId().equalsIgnoreCase(company.getCompanyId()))
 		) {
 			notifyObservers();
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
 	}
@@ -211,6 +210,30 @@ public class Application implements Subject, ApplicationGetters {
 		updateNews();
 		for(Observer observer : observers){
 			observer.update(this.news);
+		}
+	}
+
+	private void loadDatabase() {
+		try {
+			Port yul = new AirPort("YUL", "Montréal");
+			Port yvr = new AirPort("YVR", "Vancouver");
+			ports.add(yul);
+			ports.add(yvr);
+
+			Company volCan = new AirLine("VolCan", 755f);
+			Airplane vC1 = new Airplane("VC1", "B727", volCan);
+			vC1.updateSectionUnitCount(PlaneSectionType.E, 50);
+			vC1.addSection(PlaneSectionType.A, 20, Repartition.M);
+			companies.add(volCan);
+			vehicles.add(vC1);
+
+			var yulToYvr = Arrays.stream(new Port[]{yul, yvr}).toList();
+			Route vcYulYvr = new Flight(vC1, volCan, "VC200", yulToYvr, LocalDateTime.of(2024, 5, 6, 9, 5), LocalDateTime.of(2024, 5, 6, 13, 30));
+			routes.add(vcYulYvr);
+
+		} catch (InvalidIdException | InvalidPortsException | InvalidTimeException | DuplicateSectionException |
+				 TooManySectionUnitsException e) {
+			throw new RuntimeException(e);
 		}
 	}
 

@@ -1,29 +1,31 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class TrainSection extends Section {
 
-	private Vehicle vehicle;
 	private TrainSectionType sectionType;
-	private int rows;
-	private Repartition repartition = Repartition.S;
 
-
-	public TrainSection(Vehicle vehicle, TrainSectionType sectionType, int rows) {
-		this.vehicle = vehicle;
-		this.sectionType = sectionType;
-		this.rows = rows;
-	}
-
-	public Vehicle getVehicle() {
-		return vehicle;
-	}
-
-	public void setVehicle(Vehicle vehicle) {
-		this.vehicle = vehicle;
+	public TrainSection(int rows, TrainSectionType sectionType) {
+		super(rows, sectionType);
 	}
 
 	public TrainSectionType getSectionType() {
 		return this.sectionType;
 	}
 
+	public List<Seat> generateSeats(float price) {
+		var columns = getRowOfSeatTypes();
+		char colLetter = 'A';
+
+		List<Seat> seats = new ArrayList<>();
+		for (var column : columns) {
+			for (int rowIdx = 1; rowIdx <= sectionUnitCount; rowIdx++) {
+				seats.add(new TrainSeat(rowIdx, String.valueOf(colLetter), column, (TrainSectionType) sectionType, price * getPricePercentage()));
+			}
+			colLetter++;
+		}
+		return seats;
+	}
 
 	/**
 	 * @param sectionType
@@ -32,24 +34,17 @@ public class TrainSection extends Section {
 		this.sectionType = sectionType;
 	}
 
-	public int getRows() {
-		return this.rows;
+	public float getPricePercentage() {
+		return switch ((TrainSectionType)this.sectionType) {
+			case E -> 0.5f;
+			default -> 1.0f;
+		};
 	}
 
-	/**
-	 * @param rows
-	 */
-	public void setRows(int rows) {
-		this.rows = rows;
-	}
-
-	@Override
-	public float getSectionPrice() {
-		switch (sectionType) {
-			case E:
-				return (float) (0.5 * getVehicle().getCompany().getPrice());
-			default:
-				return (float) (0.60 * getVehicle().getCompany().getPrice());
-		}
+	private ColumnSeatType[] getRowOfSeatTypes() {
+		return new ColumnSeatType[]{
+					ColumnSeatType.Both,
+					ColumnSeatType.Aisle, ColumnSeatType.Window
+		};
 	}
 }

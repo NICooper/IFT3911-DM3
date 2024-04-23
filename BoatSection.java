@@ -1,29 +1,14 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class BoatSection extends Section {
 
-	private Vehicle vehicle;
-	private BoatSectionType sectionType;
-
-
-	public BoatSection(Vehicle vehicle, BoatSectionType sectionType, int placeCount) {
-		this.vehicle = vehicle;
-		this.sectionType = sectionType;
-		this.placeCount = placeCount;
-	}
-
-	public Vehicle getVehicle() {
-		return vehicle;
-	}
-
-	public void setVehicle(Vehicle vehicle) {
-		this.vehicle = vehicle;
+	public BoatSection(int cabinCount, BoatSectionType sectionType) {
+		super(cabinCount, sectionType);
 	}
 
 	public BoatSectionType getSectionType() {
-		return this.sectionType;
-	}
-
-	public void setPlaceCount(int placeCount) {
-		this.placeCount = placeCount;
+		return (BoatSectionType) this.sectionType;
 	}
 
 	/**
@@ -35,17 +20,20 @@ public class BoatSection extends Section {
 	}
 
 	@Override
-	public float getSectionPrice() {
-		switch(this.sectionType){
-			case F :
-			case S :
-				return (float) (0.9 * getVehicle().getCompany().getPrice());
-			case O :
-				return (float) (0.75 * getVehicle().getCompany().getPrice());
-			case I :
-				return (float) (0.5 * getVehicle().getCompany().getPrice());
-			default:
-				return getVehicle().getCompany().getPrice();
+	public List<Seat> generateSeats(float price) {
+		List<Seat> seats = new ArrayList<>();
+		for (int i = 1; i <= sectionUnitCount; i++) {
+			seats.add(new BoatSeat(i, (BoatSectionType) sectionType, price * getPricePercentage()));
 		}
+		return seats;
+	}
+
+	public float getPricePercentage() {
+		return switch ((BoatSectionType)this.sectionType) {
+			case F, S -> 0.9f;
+			case O -> 0.75f;
+			case I -> 0.5f;
+			default -> 1.0f;
+		};
 	}
 }

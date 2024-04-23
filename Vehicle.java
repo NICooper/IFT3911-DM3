@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Vehicle implements ProtoMemento<Vehicle> {
 
@@ -6,25 +7,12 @@ public abstract class Vehicle implements ProtoMemento<Vehicle> {
 	private String model;
 	private Company company;
 
-	private ArrayList<Section> sections;
-	
+	protected List<Section> sections;
+
 	public Vehicle(String vehicleId, String model, Company company) {
 		this.vehicleId = vehicleId;
 		this.model = model;
 		this.company = company;
-	}
-
-
-	public ArrayList<Section> getSections() {
-		return sections;
-	}
-
-	public void setSections(ArrayList<Section> sections) {
-		this.sections = sections;
-	}
-
-	public void addSection(Section section){
-		sections.add(section);
 	}
 
 	public String getVehicleId() {
@@ -32,7 +20,7 @@ public abstract class Vehicle implements ProtoMemento<Vehicle> {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param vehicleId
 	 */
 	public void setVehicleId(String vehicleId) {
@@ -44,7 +32,7 @@ public abstract class Vehicle implements ProtoMemento<Vehicle> {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param model
 	 */
 	public void setModel(String model) {
@@ -56,26 +44,31 @@ public abstract class Vehicle implements ProtoMemento<Vehicle> {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param company
 	 */
 	public void setCompany(Company company) {
 		this.company = company;
 	}
 
-	public void createBoatSection(float pricePercentage, BoatSectionType sectionType, int cabinCount) {
-		BoatSection b_section = new BoatSection(this, sectionType, cabinCount);
-		addSection(b_section);
+	public List<Section> getSections() {
+		return sections;
 	}
 
-	public void createPlaneSection(float pricePercentage, int rows, int columns, Repartition repartition, PlaneSectionType sectionType){
-		PlaneSection p_section = new PlaneSection(this, rows, repartition, sectionType);
-		addSection(p_section);
+	public void updateSectionUnitCount(SectionType sectionType, int sectionUnitCount) {
+		if (sectionUnitCount < 1) {
+			return;
+		}
+		var section = sections.stream().filter(s -> s.sectionType == sectionType).findFirst();
+		section.ifPresent(value -> value.setSectionUnitCount(sectionUnitCount));
 	}
 
-	public void createTrainSection(float pricePercentage, TrainSectionType sectionType, int rows, int columns) {
-		TrainSection t_section = new TrainSection(this, sectionType, rows);
-		addSection(t_section);
+	public List<Seat> generateSeats(float price) {
+		List<Seat> seats = new ArrayList<>();
+		for (var section : sections) {
+			seats.addAll(section.generateSeats(price));
+		}
+		return seats;
 	}
 
 	public abstract ProtoMemento<Vehicle> copy();

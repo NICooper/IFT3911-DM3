@@ -19,7 +19,7 @@ public abstract class Company implements ProtoMemento<Company> {
 	 * @param companyId
 	 */
 	public void setCompanyId(String companyId) throws InvalidIdException {
-		if (companyId.length() == 6) {
+		if (companyId.length() <= 6) {
 			this.companyId = companyId;
 		} else {
 			throw new InvalidIdException("Company IDs must be 6 characters long.");

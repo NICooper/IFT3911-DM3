@@ -21,7 +21,7 @@ public class CreateTrainSectionCommand {
 	}
 
 	public boolean execute() {
-		vehicle.createTrainSection(this.pricePercentage, this.sectionType, this.rows, this.columns);
+//		vehicle.createTrainSection(this.pricePercentage, this.sectionType, this.rows, this.columns);
 		return true;
 	}
 

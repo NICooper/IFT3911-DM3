@@ -2,10 +2,17 @@ public abstract class Seat {
 
 	Payment payment;
 	Client passenger;
-	private String number;
+	private String seatId;
 	private float price;
+	protected SectionType sectionType;
 	private Reservation reservation;
 	private SeatState currentState;
+
+	public Seat(String seatId, SectionType sectionType, float price) {
+		this.seatId = seatId;
+		this.sectionType = sectionType;
+		this.price = price;
+	}
 
 	public SeatState getCurrentState() {
 		return currentState;
@@ -15,30 +22,20 @@ public abstract class Seat {
 		this.currentState = currentState;
 	}
 
-	public boolean getIsAvailable() {
-		// TODO - implement Seat.getIsAvailable
-		throw new UnsupportedOperationException();
+	public boolean isAvailable() {
+		return reservation == null;
 	}
 
-	/**
-	 * 
-	 * @param isAvailable
-	 */
-	public void setIsAvailable(boolean isAvailable) {
-		// TODO - implement Seat.setIsAvailable
-		throw new UnsupportedOperationException();
+	public String getSeatId() {
+		return seatId;
 	}
 
 	public float getPrice() {
 		return this.price;
 	}
 
-	/**
-	 * 
-	 * @param price
-	 */
-	public void setPrice(float price) {
-		this.price = price;
+	public SectionType getSectionType() {
+		return this.sectionType;
 	}
 
 	/**
