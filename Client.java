@@ -127,4 +127,34 @@ public class Client implements ClientRouteVerification, Observer<ApplicationGett
         // pas trop compris ça.. 
 		throw new UnsupportedOperationException();
     }
+    public void rechercherVolsItinerairesTrajets() {
+        System.out.println("Recherche de vols, itinéraires ou trajets en cours...");
+
+        ArrayList<Flight> flights = new ArrayList<>();
+        for (Route route : ApplicationGetters.getRoutes()) {
+            for (Flight flight : route.getFlights()) {
+                flights.add(flight);
+            }
+        }
+
+        for (Flight flight : flights) {
+            System.out.println("Vol disponible : " + flight);
+        }
+    }
+   public Reservation reserveSiege(Type type, boolean isWindow, Seat seat, boolean isNaval) {
+        
+        if (seat.isAvailable()) {
+            Reservation reservation = new Reservation();
+            reservation.setSeat(seat);
+            reservation.setClient(this);
+            this.reservation = reservation;
+            seat.setReserved(true);
+            return reservation;
+        } else {
+            System.out.println("Ce siège est déjà réservé. Veuillez en choisir un autre.");
+            return null;
+        }
+        
+        return null;
+    }
 }
