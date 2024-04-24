@@ -1,4 +1,4 @@
-public class DeleteVehicleCommand {
+public class DeleteVehicleCommand implements Command {
 
 	private final Application application;
 	private final Vehicle vehicle;

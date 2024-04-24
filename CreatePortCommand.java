@@ -1,4 +1,4 @@
-public class CreatePortCommand {
+public class CreatePortCommand implements Command {
 	private final Application application;
 	private final TravelFactory travelFactory;
 	private final String id;
@@ -27,7 +27,12 @@ public class CreatePortCommand {
 
 	public boolean execute() {
 		createdPort = travelFactory.createPort(id, city);
-		return application.addPort(createdPort);
+		if (createdPort != null) {
+			return application.addPort(createdPort);
+		}
+		else {
+			return false;
+		}
 	}
 
 }

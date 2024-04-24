@@ -7,7 +7,7 @@ public abstract class Vehicle implements ProtoMemento<Vehicle> {
 	private String model;
 	private Company company;
 
-	protected List<Section> sections;
+	protected List<Section> sections = new ArrayList<>();
 
 	public Vehicle(String vehicleId, String model, Company company) {
 		this.vehicleId = vehicleId;
