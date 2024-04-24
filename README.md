@@ -10,4 +10,6 @@ If you choose to be an Admin you will have control over the application, you can
 
 If you choose to be a Client you will be able to check Routes from a client point of view, reserve an available siege and pay a reserved siege. 
 
-When you enter anything, the software will check if your data is valid, if it's not you may either be asked to re-enter the value or be redirected to the previous page.
+When you enter anything, the software will check if your data is valid, if it's not you may either be asked to re-enter the value or be redirected to the previous page. 
+
+At any point of your use of the application, you will be directed through what your doing and will have clear instructions on how to interact with tha application.
