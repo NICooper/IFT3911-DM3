@@ -1,4 +1,4 @@
-public class DeleteCompanyCommand {
+public class DeleteCompanyCommand implements Command{
 
 	private final Company company;
 	private final Application application;
