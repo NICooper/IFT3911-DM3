@@ -22,7 +22,7 @@ public class ModifyVehicleCommand implements Command {
 
 	public boolean execute() {
 		vehicleMemento = vehicle.copy();
-		vehicle.setVehicleId(id);
+		//vehicle.setVehicleId(id); // faut que le Id soit immuable
 		vehicle.setModel(model);
 		vehicle.setCompany(company);
 		return application.modifyVehicle(vehicle);

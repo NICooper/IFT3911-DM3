@@ -19,13 +19,8 @@ public class ModifyCompanyCommand implements Command {
 
 	public boolean execute() {
 		companyMemento = company.copy();
-		try {
-			company.setCompanyId(newId);
-			company.setPrice(newPrice);
-		}
-		catch (InvalidIdException e) {
-			return false;
-		}
+		//company.setCompanyId(newId); immuable
+		company.setPrice(newPrice);
 		return application.modifyCompany(company);
 	}
 

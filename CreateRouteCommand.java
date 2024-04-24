@@ -1,7 +1,7 @@
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class CreateRouteCommand {
+public class CreateRouteCommand implements Command{
 	private final Application application;
 	private final TravelFactory travelFactory;
 	private final Vehicle vehicle;

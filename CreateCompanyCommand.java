@@ -1,4 +1,4 @@
-public class CreateCompanyCommand {
+public class CreateCompanyCommand implements Command{
 	private final Application application;
 	private final TravelFactory travelFactory;
 	private final String id;

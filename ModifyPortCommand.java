@@ -1,4 +1,4 @@
-public class ModifyPortCommand implements Command {
+public class ModifyPortCommand implements Command{
 	private final Application application;
 	private final Port port;
 	private ProtoMemento<Port> portMemento;
@@ -19,11 +19,6 @@ public class ModifyPortCommand implements Command {
 
 	public boolean execute() {
 		portMemento = port.copy();
-		try {
-			port.setPortId(newId);
-		} catch (InvalidIdException e) {
-			return false;
-		}
 		port.setCity(newCity);
 		return application.modifyPort(port);
 	}

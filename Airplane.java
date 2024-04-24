@@ -1,4 +1,5 @@
 public class Airplane extends Vehicle {
+
     public Airplane(String vehicleId, String model, Company company) {
         super(vehicleId, model, company);
         sections.add(new PlaneSection(1, PlaneSectionType.E));
