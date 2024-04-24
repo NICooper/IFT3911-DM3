@@ -89,8 +89,14 @@ public class Client implements ClientRouteVerification, Observer<ApplicationGett
     }
 
     @Override
-    public boolean pay(String reservationNumber, String firstName, String lastName, String email, String passportNumber) {
-        return true;
+    public void pay(Seat seat) {
+        if (seat.getCurrentState() instanceof Reserved){
+            seat.nextState();
+            System.out.println("SUCCESS");
+            System.out.println("PAID FOR SIEGE#" + seat.getSeatId());
+        }else{
+            System.out.println("ECHEC");
+        }
     }
 
     @Override

@@ -2,7 +2,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.RandomAccess;
 import java.util.Scanner;
 
 public class Menus {
@@ -692,6 +691,44 @@ public class Menus {
         }
 
     private void paySeat() {
+        System.out.println("Entrer le numero de la reservation pour laquelle vous voulez payer");
+        String res_num = scanner.nextLine();
+        res_num = scanner.nextLine();
+
+        Reservation reservation = findReservation(res_num, application.getReservations());
+
+        if(reservation != null){
+            if(client.getReservation()==reservation){
+                String passport_number;
+                String first_name;
+                String last_name;
+                String email;
+                System.out.println("Num de passport");
+                passport_number = scanner.nextLine();
+                System.out.println("Prenom");
+                first_name = scanner.nextLine();
+                System.out.println("Nom");
+                last_name = scanner.nextLine();
+                System.out.println("email");
+                email = scanner.nextLine();
+                if(client.getFirstName() == first_name && client.getLastName() == last_name && client.getEmail() == email
+                && client.getPassportNumber() == passport_number) {
+                    client.pay(reservation.getSeat());
+                }
+            }
+        }else{
+            System.out.println("Le numero de reservation n'est pas valide");
+            afficherMenuClient();
+        }
+    }
+
+    private Reservation findReservation(String resNum, ArrayList<Reservation> reservations) {
+        for (int i = 0; i<reservations.size(); i++){
+            if (resNum.equals(reservations.get(i).getReservationNumber())){
+                return reservations.get(i);
+            }
+        }
+        return null;
     }
 
     private void reserveSeat() {
