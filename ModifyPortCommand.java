@@ -1,4 +1,4 @@
-public class ModifyPortCommand {
+public class ModifyPortCommand implements Command {
 	private final Application application;
 	private final Port port;
 	private ProtoMemento<Port> portMemento;
