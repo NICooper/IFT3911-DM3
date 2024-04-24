@@ -7,6 +7,10 @@ public class Reservation implements SeatConfirmation, Validation {
 	private Seat seat;
 	private Date creationDate;
 
+	public Reservation(Seat seat) {
+		this.seat = seat;
+	}
+
 	public Date getCreationDate() {
 		return this.creationDate;
 	}

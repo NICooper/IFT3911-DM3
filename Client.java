@@ -75,13 +75,19 @@ public class Client implements ClientRouteVerification, Observer<ApplicationGett
     }
 
     @Override
-    public Reservation reserveSiege(Type type, boolean isWindow, Seat seat, boolean isNaval) {
-        return null;
+    public void reserveSiege(Seat seat) {
+        if (seat.getCurrentState() instanceof Available){
+            seat.nextState();
+            this.reservation = new Reservation(seat);
+        }
+        else{
+            System.out.println("Ce siege est deja reserve");
+        }
     }
 
     @Override
     public boolean pay(String reservationNumber, String firstName, String lastName, String email, String passportNumber) {
-        return false;
+        return true;
     }
 
     @Override

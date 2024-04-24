@@ -28,7 +28,7 @@ public class Menus {
         int choix = scanner.nextInt();
         switch (choix) {
             case 1 -> afficherMenuTypeVoyageAdmin();
-            //case 2 -> afficherMenuClient();
+            case 2 -> afficherMenuClient();
             case 0 -> {
                 System.out.println("Au revoir !");
                 System.exit(0);
@@ -622,7 +622,7 @@ public class Menus {
     }
 
 
-    /*public void afficherMenuClient () {
+    public void afficherMenuClient () {
             System.out.println("Menu Client :");
             System.out.println("1. Rechercher des vols, itinéraires ou trajets");
             System.out.println("2. Réserver un siège ou une cabine");
@@ -630,14 +630,34 @@ public class Menus {
 
             int choix = scanner.nextInt();
             switch (choix) {
-                case 1 -> client.rechercherVolsItinerairesTrajets();
-                case 2 -> client.reserveSiege();
-                case 3 -> client.pay();
+                case 1 -> visitMePleaseClient();
+                case 2 -> reserveSeat();
+                case 3 -> paySeat();
                 default -> System.out.println("Option invalide !");
             }
         }
-        */
-        // autres..
+
+    private void paySeat() {
+    }
+
+    private void reserveSeat() {
+    }
+
+    private void visitMePleaseClient() {
+        String routeId;
+        Route route;
+
+        System.out.println("Quelle route vous voulez visiter?");
+        routeId = scanner.nextLine();
+
+        route = findRoute(routeId, application.getRoutes());
+
+        assert route != null;
+
+        route.accept(client.getClientView());
+    }
+
+    // autres..
     
     public static void main (String[]args){
             Menus menus = new Menus();

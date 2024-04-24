@@ -1,13 +1,7 @@
 public interface ClientReservation {
 
-	/**
-	 * 
-	 * @param type
-	 * @param isWindow
-	 * @param seat
-	 * @param isNaval
-	 */
-	Reservation reserveSiege(Type type, boolean isWindow, Seat seat, boolean isNaval);
+
+	void reserveSiege(Seat seat);
 
 	/**
 	 * 
