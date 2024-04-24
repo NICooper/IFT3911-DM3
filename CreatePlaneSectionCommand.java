@@ -1,4 +1,4 @@
-public class CreatePlaneSectionCommand {
+public class CreatePlaneSectionCommand implements Command{
 
 	private final Airplane airplane;
 	private final int rows;

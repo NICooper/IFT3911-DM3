@@ -57,7 +57,7 @@ public class Menus {
         System.out.println("2. Gérer les ports\n");
         System.out.println("3. Gérer les routes\n");
         System.out.println("4. Gérer les véhicules\n");
-        System.out.println("5. Gérer les séctions\n");
+        System.out.println("5. Creer une séction\n");
         System.out.println("6. Revenir");
 
         int choix = scanner.nextInt();
@@ -66,10 +66,81 @@ public class Menus {
             case 2 -> gererPorts(travelFactory);
             case 3 -> gererRoutes(travelFactory);
             case 4 -> gererEntitesDeVoyage(travelFactory);
-            //case 5 -> ;
+            case 5 -> whatSection(travelFactory);
             case 6 -> afficherMenuTypeVoyageAdmin();
             default -> System.out.println("Option invalide !");
         }
+    }
+
+    private void whatSection(TravelFactory travelFactory) {
+        if (travelFactory instanceof AirFactory){
+            createPlaneSection();
+        } else if (travelFactory instanceof SeaFactory) {
+            //////create the section for the boat
+        }
+        else {
+            /////create the section for the train
+        }
+    }
+
+
+    private void createPlaneSection() {
+        String vehicleId;
+        System.out.println("A quel avion vous voulez ajouter la section");
+        vehicleId = scanner.nextLine();
+        vehicleId = scanner.nextLine();
+
+        Vehicle vehicle = findVehicle(vehicleId, application.getVehicles());
+
+        if (vehicle instanceof Airplane) {
+            System.out.println("Combien de rangees?");
+            int rows = scanner.nextInt();
+
+            System.out.println("Repartition?\n");
+            System.out.println("1.S\n");
+            System.out.println("2.C\n");
+            System.out.println("3.M\n");
+            System.out.println("4.L\n");
+
+            int rep = scanner.nextInt();
+            Repartition repartition = null;
+            switch (rep){
+                case 1 -> repartition = Repartition.S;
+                case 2 -> repartition = Repartition.C;
+                case 3 -> repartition = Repartition.M;
+                case 4 -> repartition = Repartition.L;
+                default -> {
+                    System.out.println("Erreur, entree non valide");
+                    createPlaneSection();
+                }
+            }
+
+            System.out.println("Section Type?\n");
+            System.out.println("1.F\n");
+            System.out.println("2.A\n");
+            System.out.println("3.P\n");
+            System.out.println("4.E\n");
+
+            int st = scanner.nextInt();
+            PlaneSectionType sectionType = null;
+            switch (st){
+                case 1 -> sectionType = PlaneSectionType.F;
+                case 2 -> sectionType = PlaneSectionType.A;
+                case 3 -> sectionType = PlaneSectionType.P;
+                case 4 -> sectionType = PlaneSectionType.E;
+                default -> {
+                    System.out.println("Erreur, entree non valide");
+                    createPlaneSection();
+                }
+            }
+
+            admin.setCommand(new CreatePlaneSectionCommand((Airplane) vehicle, rows, repartition, sectionType));
+            admin.exec();
+        }else {
+            System.out.println("Ce n'est pas un airplane");
+            createPlaneSection();
+        }
+
     }
 
     private void gererRoutes(TravelFactory travelFactory) {
