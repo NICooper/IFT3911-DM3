@@ -3,14 +3,8 @@ import java.util.List;
 
 public class TrainSection extends Section {
 
-	private TrainSectionType sectionType;
-
 	public TrainSection(int rows, TrainSectionType sectionType) {
 		super(rows, sectionType);
-	}
-
-	public TrainSectionType getSectionType() {
-		return this.sectionType;
 	}
 
 	public List<Seat> generateSeats(float price) {

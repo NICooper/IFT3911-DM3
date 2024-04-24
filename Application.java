@@ -196,19 +196,89 @@ public class Application implements Subject, ApplicationGetters {
 		try {
 			Port yul = new AirPort("YUL", "Montréal");
 			Port yvr = new AirPort("YVR", "Vancouver");
+			Port yyz = new AirPort("YYZ", "Toronto");
 			ports.add(yul);
 			ports.add(yvr);
+			ports.add(yyz);
 
 			Company volCan = new AirLine("VolCan", 755f);
+			companies.add(volCan);
+
 			Airplane vC1 = new Airplane("VC1", "B727", volCan);
+			Airplane vC2 = new Airplane("VC2", "AB100", volCan);
 			vC1.updateSectionUnitCount(PlaneSectionType.E, 50);
 			vC1.addSection(PlaneSectionType.A, 20, Repartition.M);
-			companies.add(volCan);
+			vC2.updateSectionUnitCount(PlaneSectionType.E, 50);
+			vC2.updateRepartition(PlaneSectionType.E, Repartition.L);
+			vC2.addSection(PlaneSectionType.P, 10, Repartition.S);
+			vC2.addSection(PlaneSectionType.F, 10, Repartition.C);
 			vehicles.add(vC1);
+			vehicles.add(vC2);
 
 			var yulToYvr = Arrays.stream(new Port[]{yul, yvr}).toList();
-			Route vcYulYvr = new Flight(vC1, volCan, "VC200", yulToYvr, LocalDateTime.of(2024, 5, 6, 9, 5), LocalDateTime.of(2024, 5, 6, 13, 30));
-			routes.add(vcYulYvr);
+			var yyzToYul = Arrays.stream(new Port[]{yyz, yul}).toList();
+			var yvrToYyz = Arrays.stream(new Port[]{yvr, yyz}).toList();
+			routes.add(new Flight(vC1, volCan, "VC200", yulToYvr, LocalDateTime.of(2024, 5, 6, 9, 5), LocalDateTime.of(2024, 5, 6, 13, 30)));
+			routes.add(new Flight(vC2, volCan, "VC123", yyzToYul, LocalDateTime.of(2024, 5, 6, 12, 0), LocalDateTime.of(2024, 5, 6, 13, 30)));
+			routes.add(new Flight(vC2, volCan, "VC501", yvrToYyz, LocalDateTime.of(2024, 5, 8, 17, 30), LocalDateTime.of(2024, 5, 8, 22, 45)));
+
+
+
+			Port mtl = new SeaPort("MTL", "Montréal");
+			Port trv = new SeaPort("TRV", "Trois Rivières");
+			Port qbc = new SeaPort("QBC", "Québec");
+			ports.add(mtl);
+			ports.add(trv);
+			ports.add(qbc);
+
+			Company ferry = new CruiseLine("Ferry", 150f);
+			companies.add(ferry);
+
+			Boat f1 = new Boat("FRY", "Nimitz", ferry);
+			f1.updateSectionUnitCount(BoatSectionType.F, 400);
+			f1.updateSectionUnitCount(BoatSectionType.I, 100);
+			f1.updateSectionUnitCount(BoatSectionType.S, 100);
+			f1.updateSectionUnitCount(BoatSectionType.D, 100);
+			f1.updateSectionUnitCount(BoatSectionType.O, 150);
+			vehicles.add(f1);
+
+			var mtlToTrv = Arrays.stream(new Port[]{mtl, trv}).toList();
+			var trvToQbc = Arrays.stream(new Port[]{trv, qbc}).toList();
+			var qbcToMtl = Arrays.stream(new Port[]{qbc, trv, mtl}).toList();
+
+			routes.add(new Cruise(f1, ferry, "M2T", mtlToTrv, LocalDateTime.of(2024, 5, 6, 9, 5), LocalDateTime.of(2024, 5, 6, 13, 30)));
+			routes.add(new Cruise(f1, ferry, "T2Q", trvToQbc, LocalDateTime.of(2024, 5, 7, 12, 0), LocalDateTime.of(2024, 5, 7, 13, 30)));
+			routes.add(new Cruise(f1, ferry, "QTM", qbcToMtl, LocalDateTime.of(2024, 5, 8, 17, 30), LocalDateTime.of(2024, 5, 8, 22, 45)));
+
+
+
+			Port lsj = new TrainStation("LSJ", "Lac Saint Jean");
+			Port otw = new TrainStation("OTW", "Ottawa");
+			Port gsp = new TrainStation("GSP", "Gaspé");
+			Port grn = new TrainStation("GRN", "Granby");
+			ports.add(lsj);
+			ports.add(otw);
+			ports.add(gsp);
+			ports.add(grn);
+
+			Company trnCo = new TrainLine("TrnCo", 95f);
+			companies.add(trnCo);
+
+			Train train1 = new Train("B1", "T1000", trnCo);
+			Train train2 = new Train("B2", "T1000", trnCo);
+			train1.updateSectionUnitCount(TrainSectionType.E, 1000);
+			train1.updateSectionUnitCount(TrainSectionType.P, 60);
+			train2.updateSectionUnitCount(TrainSectionType.E, 960);
+			train2.updateSectionUnitCount(TrainSectionType.P, 100);
+			vehicles.add(train1);
+			vehicles.add(train2);
+
+			var lsjToOtw = Arrays.stream(new Port[]{lsj, grn, otw}).toList();
+			var otwToLsj = Arrays.stream(new Port[]{otw, grn, lsj}).toList();
+			var gspToOtw = Arrays.stream(new Port[]{gsp, lsj, grn, otw}).toList();
+			routes.add(new RailRoad(train1, trnCo, "T10", lsjToOtw, LocalDateTime.of(2024, 5, 6, 9, 5), LocalDateTime.of(2024, 5, 6, 13, 30)));
+			routes.add(new RailRoad(train1, trnCo, "T01", otwToLsj, LocalDateTime.of(2024, 5, 7, 12, 0), LocalDateTime.of(2024, 5, 7, 13, 30)));
+			routes.add(new RailRoad(train2, trnCo, "T05", gspToOtw, LocalDateTime.of(2024, 5, 8, 17, 30), LocalDateTime.of(2024, 5, 8, 22, 45)));
 
 		} catch (InvalidIdException | InvalidPortsException | InvalidTimeException | DuplicateSectionException |
 				 TooManySectionUnitsException e) {
