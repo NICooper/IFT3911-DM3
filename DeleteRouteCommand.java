@@ -1,4 +1,4 @@
-public class DeleteRouteCommand {
+public class DeleteRouteCommand implements Command{
 	private final Application application;
 	private final Route route;
 

@@ -34,7 +34,7 @@ public class ModifyRouteCommand implements Command {
 		try {
 			route.setVehicle(vehicle);
 			route.setCompany(company);
-			route.setId(id);
+			//route.setId(id);
 			route.setPorts(ports);
 			route.setDepartureAndArrivalTime(departureTime, arrivalTime);
 		} catch (InvalidPortsException | InvalidTimeException e) {

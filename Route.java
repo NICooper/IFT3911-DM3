@@ -50,6 +50,10 @@ public abstract class Route implements IVisitable, ProtoMemento<Route> {
 		}
 	}
 
+	public List<Port> getPorts() {
+		return ports;
+	}
+
 	public LocalDateTime getDepartureTime() {
 		return this.departureTime;
 	}

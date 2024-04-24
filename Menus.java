@@ -1,5 +1,7 @@
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Menus {
@@ -88,22 +90,147 @@ public class Menus {
     }
 
     private void modifierRoute(TravelFactory travelFactory) {
+        String routeId;
+
+        System.out.println("Quel route vous voulez modifier (id)");
+        routeId = scanner.nextLine();
+        routeId = scanner.nextLine();
+
+        Route route = findRoute(routeId, application.getRoutes());
+        if(route != null){
+            List<Port> initial = route.getPorts();
+            System.out.println("Quel vehicle vous voullez");
+            String vehicleId = scanner.nextLine();
+
+            System.out.println("Quelle compagnie vous voullez");
+            String companyId = scanner.nextLine();
+
+            Vehicle vehicle = findVehicle(vehicleId, application.getVehicles());
+            Company company = findCompany(companyId, application.getCompanies());
+
+            if(vehicle != null && company != null){
+                System.out.println("Quel port (ordre dans la liste) vous voulez modifier ?");
+                int index = scanner.nextInt();
+
+                System.out.println("Quel port vous voullez mettre a la place");
+                String portId = scanner.nextLine();
+
+                Port port = findPort(portId, application.getPorts());
+
+                if(port != null){
+                    initial.set(index, port);
+
+                    System.out.print("Temps de depart (format: yyyy-MM-dd HH:mm:ss): ");
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                    String input_d = scanner.nextLine();
+                    LocalDateTime departureTime = LocalDateTime.parse(input_d, formatter);
+                    System.out.print("Temps d'arrivee (format: yyyy-MM-dd HH:mm:ss): ");
+                    String input_a = scanner.nextLine();
+                    LocalDateTime arrivalTime = LocalDateTime.parse(input_a, formatter);
+
+                    admin.setCommand(new ModifyRouteCommand(application, route, vehicle, company, routeId, initial, arrivalTime, departureTime));
+                    admin.exec();
+                }
+            }
+        }
+        else{
+            System.out.println("Route non dispo");
+        }
     }
 
     private void supprimerRoute(TravelFactory travelFactory) {
+        String routeId;
+        Route route;
+
+        System.out.println("C'est quoi l'id de la route que vous voulez supprimer?");
+        routeId = scanner.nextLine();
+        routeId = scanner.nextLine();
+
+        route = findRoute(routeId, application.getRoutes());
+
+        if (route!=null) {
+            admin.setCommand(new DeleteRouteCommand(application, route));
+            admin.exec();
+        }
+        else{
+            System.out.println("Id de la route n'est pas valide, veuillez choisir une autre route ou en creer une");
+            gererPorts(travelFactory);
+        }
+
+    }
+
+    private Route findRoute(String routeId, ArrayList<Route> routes) {
+        for (int i = 0; i<routes.size(); i++){
+            if (routeId.equals(routes.get(i).getId())){
+                return routes.get(i);
+            }
+        }
+        return null;
     }
 
     private void ajouterRoute(TravelFactory travelFactory) {
         String routeId;
-        String VehicleId;
+        String vehicleId;
         Vehicle vehicle;
-        String CompanyId;
+        String companyId;
         Company company;
-        ArrayList<Port> ports;
+        String portId;
+        Port port;
+        ArrayList<Port> ports = null;
         LocalDateTime arrivalTime;
         LocalDateTime departureTime;
 
+        System.out.println("Rentrez l'id de la route");
+        routeId = scanner.nextLine();
+        routeId = scanner.nextLine();
 
+        System.out.println("Rentrez l'id de la vehicule de la route");
+        vehicleId = scanner.nextLine();
+
+        vehicle = findVehicle(vehicleId, application.getVehicles());
+
+        if(vehicle != null) {
+            System.out.println("Rentrez l'id de la compagnie qui gere la route");
+            companyId = scanner.nextLine();
+
+            company = findCompany(companyId, application.getCompanies());
+
+            if(company != null){
+                boolean cond = true;
+                while (cond) {
+                    System.out.println("Rentrez le port id dans l'ordre");
+                    portId = scanner.nextLine();
+                    port = findPort(portId, application.getPorts());
+                    if (port != null){
+                        ports.add(port);
+                    }
+                    else{
+                        System.out.println("Port not found");
+                    }
+                    System.out.println("Si vous voulez vous arreter, cliquer sur 1");
+                    int choice = scanner.nextInt();
+                    if(choice == 1){cond = false;}
+                }
+
+                System.out.print("Temps de depart (format: yyyy-MM-dd HH:mm:ss): ");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                String input_d = scanner.nextLine();
+                departureTime = LocalDateTime.parse(input_d, formatter);
+                System.out.print("Temps d'arrivee (format: yyyy-MM-dd HH:mm:ss): ");
+                String input_a = scanner.nextLine();
+                arrivalTime = LocalDateTime.parse(input_a, formatter);
+
+                admin.setCommand(new CreateRouteCommand(application, travelFactory, vehicle, company, routeId, ports, arrivalTime, departureTime));
+                admin.exec();;
+            }else {
+                System.out.println("compagnie n'existe pas");
+                gererRoutes(travelFactory);
+            }
+        }
+        else{
+            System.out.println("Vehicule n'existe pas");
+            gererRoutes(travelFactory);
+        }
     }
 
     private void gererPorts(TravelFactory travelFactory) {
@@ -130,6 +257,7 @@ public class Menus {
 
         System.out.println("C'est quoi l'Id du port que vous voulez modifier");
         portId = scanner.nextLine();
+        portId = scanner.nextLine();
 
         port = findPort(portId, application.getPorts());
 
@@ -152,6 +280,7 @@ public class Menus {
 
         System.out.println("C'est quoi l'id du port que vous voulez supprimer?");
         portId = scanner.nextLine();
+        portId = scanner.nextLine();
 
         port = findPort(portId, application.getPorts());
 
@@ -170,6 +299,7 @@ public class Menus {
         String city;
 
         System.out.println("Choisissez un id pour votre port?");
+        portId = scanner.nextLine();
         portId = scanner.nextLine();
 
         System.out.println("Dans quel city il se situe?");
@@ -221,6 +351,7 @@ public class Menus {
 
         System.out.println("C'est quoi l'Id de la compagnie que vous voulez modifier");
         companyId = scanner.nextLine();
+        companyId = scanner.nextLine();
 
         company = findCompany(companyId, application.getCompanies());
 
@@ -241,7 +372,8 @@ public class Menus {
         String companyId;
         Company company;
 
-        System.out.println("C'est quoi l'id de la vehicule que vous voulez supprimer?");
+        System.out.println("C'est quoi l'id de la compagnie que vous voulez supprimer?");
+        companyId = scanner.nextLine();
         companyId = scanner.nextLine();
 
         company = findCompany(companyId, application.getCompanies());
@@ -261,6 +393,7 @@ public class Menus {
         float price;
 
         System.out.println("Choisissez un id pour votre compagnie");
+        companyId = scanner.nextLine();
         companyId = scanner.nextLine();
 
         System.out.println("Quel est le prix?");
@@ -305,6 +438,7 @@ public class Menus {
 
         System.out.println("C'est quoi la vehicule que vous voulez modifier?");
         vehicleId = scanner.nextLine();
+        vehicleId = scanner.nextLine();
 
         vehicle = findVehicle(vehicleId, application.getVehicles());
 
@@ -339,6 +473,7 @@ public class Menus {
 
         System.out.println("C'est quoi la vehicule que vous voulez supprimer?");
         vehicleId = scanner.nextLine();
+        vehicleId = scanner.nextLine();
 
         vehicle = findVehicle(vehicleId, application.getVehicles());
 
@@ -368,6 +503,7 @@ public class Menus {
         Company company;
 
         System.out.println("Choisissez l'Id de la vehicule a ajouter");
+        id = scanner.nextLine();
         id = scanner.nextLine();
 
         System.out.println("Choisissez le modele de la vehicule a ajouter");

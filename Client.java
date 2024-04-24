@@ -76,6 +76,27 @@ public class Client implements ClientRouteVerification, Observer<ApplicationGett
 
     @Override
     public Reservation reserveSiege(Type type, boolean isWindow, Seat seat, boolean isNaval) {
+        return null;
+    }
+
+    @Override
+    public boolean pay(String reservationNumber, String firstName, String lastName, String email, String passportNumber) {
+        return false;
+    }
+
+    @Override
+    public void verifyRoutes(Port portDeparture, Port portArrival, Section section, Date date, Type type) {
+
+    }
+
+    @Override
+    public void update(ApplicationGetters object) {
+
+    }
+
+    /*
+    @Override
+    public Reservation reserveSiege(Type type, boolean isWindow, Seat seat, boolean isNaval) {
         /*
         // Implémentation de la réservation d'un siège ou d'une cabine
         if (seat.isAvailable()) {
@@ -89,7 +110,7 @@ public class Client implements ClientRouteVerification, Observer<ApplicationGett
             System.out.println("Ce siège est déjà réservé. Veuillez en choisir un autre.");
             return null;
         }
-        */
+
         return null;
     }
 
@@ -106,7 +127,7 @@ public class Client implements ClientRouteVerification, Observer<ApplicationGett
             System.out.println("Les informations fournies ne correspondent pas à la réservation.");
             return false;
         }
-         */
+
         return true;
     }
 
@@ -157,4 +178,6 @@ public class Client implements ClientRouteVerification, Observer<ApplicationGett
         
         return null;
     }
+
+     */
 }
