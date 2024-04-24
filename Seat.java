@@ -12,6 +12,7 @@ public abstract class Seat {
 		this.seatId = seatId;
 		this.sectionType = sectionType;
 		this.price = price;
+		setCurrentState(new Available());
 	}
 
 	public SeatState getCurrentState() {
@@ -20,6 +21,14 @@ public abstract class Seat {
 
 	public void setCurrentState(SeatState currentState) {
 		this.currentState = currentState;
+	}
+
+	public void nextState(){
+		currentState.next(this);
+	}
+
+	public void prevState(){
+		currentState.prev(this);
 	}
 
 	public boolean isAvailable() {
