@@ -11,29 +11,9 @@ public class Application implements Subject, ApplicationGetters {
 	private final ArrayList<Reservation> reservations = new ArrayList<>();
 	private final ArrayList<Vehicle> vehicles = new ArrayList<>();
 	private final ArrayList<Client> clients = new ArrayList<>();
-	private ArrayList<Object>[] news = new ArrayList[7];
 
 	public Application() {
 		loadDatabase();
-	}
-
-	public ArrayList<Object>[] getNews() {
-		return news;
-	}
-
-	public void setNews(ArrayList<Object>[] news) {
-		this.news = news;
-	}
-
-	public void updateNews() {
-		//news = new ArrayList[7];
-		this.news[0].add(admins);
-		this.news[1].add(ports);
-		this.news[2].add(companies);
-		this.news[3].add(routes);
-		this.news[4].add(reservations);
-		this.news[5].add(vehicles);
-		this.news[6].add(clients);
 	}
 
 	public void addAdmin(Administrator admin) {
@@ -207,9 +187,8 @@ public class Application implements Subject, ApplicationGetters {
 
 	@Override
 	public void notifyObservers() {
-		updateNews();
 		for(Observer observer : observers){
-			observer.update(this.news);
+			observer.update(this);
 		}
 	}
 

@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Client implements ClientRouteVerification, Observer, ClientReservation {
+public class Client implements ClientRouteVerification, Observer<ApplicationGetters>, ClientReservation {
 
     private String firstName;
     private String lastName;
@@ -10,7 +10,6 @@ public class Client implements ClientRouteVerification, Observer, ClientReservat
     private Reservation reservation;
     private Seat seat;
     private ClientView clientView;
-    private ArrayList<Object>[] news;
 
     /*public Client(String firstName, String lastName, String email, String passportNumber) {
         this.firstName = firstName;
@@ -75,14 +74,6 @@ public class Client implements ClientRouteVerification, Observer, ClientReservat
         this.clientView = clientView;
     }
 
-    public ArrayList<Object>[] getNews() {
-        return news;
-    }
-
-    public void setNews(ArrayList<Object>[] news) {
-        this.news = news;
-    }
-
     @Override
     public Reservation reserveSiege(Type type, boolean isWindow, Seat seat, boolean isNaval) {
         /*
@@ -127,9 +118,8 @@ public class Client implements ClientRouteVerification, Observer, ClientReservat
     }
 
     @Override
-    public void update(ArrayList<Object>[] news) {
+    public void update(ApplicationGetters object) {
         // todo  mise à jour des nouvelles
-        this.setNews(news);
         System.out.println("Nouvelles mises à jour !");
     }
 

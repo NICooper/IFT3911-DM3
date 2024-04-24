@@ -1,29 +1,29 @@
 import java.util.ArrayList;
 import java.util.Stack;
 
-public class Administrator implements Observer{
+public class Administrator implements Observer<ApplicationGetters> {
 
-	private String name;
-	private String id;
 	private final Stack<Command> commandHistory = new Stack<>();
-	private ArrayList<Object>[] news;
-
-	public ArrayList<Object>[] getNews() {
-		return news;
-	}
-
-	public void setNews(ArrayList<Object>[] news) {
-		this.news = news;
-	}
 
 	private Command command;
 
 	private AdminView adminView;
 	//private State state;
 
-	public void undo() {
-		var topCommand = commandHistory.pop();
-		topCommand.undo();
+	public boolean undo() {
+		if (!commandHistory.empty()) {
+			var topCommand = commandHistory.pop();
+			return topCommand.undo();
+		}
+		return false;
+	}
+
+	public boolean runCommand(Command command) {
+		if (command.execute()) {
+			commandHistory.push(command);
+			return true;
+		}
+		return false;
 	}
 
 	public void setCommand(Command command) {
@@ -37,7 +37,7 @@ public class Administrator implements Observer{
 	}
 
 	@Override
-	public void update(ArrayList<Object>[] news) {
-		this.setNews(news);
+	public void update(ApplicationGetters object) {
+		return;
 	}
 }

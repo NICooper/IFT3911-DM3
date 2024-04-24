@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
-public interface Observer {
+public interface Observer<T> {
 
-	void update(ArrayList<Object>[] news);
+	void update(T object);
 
 }
