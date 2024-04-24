@@ -41,4 +41,9 @@ public class TrainSection extends Section {
 					ColumnSeatType.Aisle, ColumnSeatType.Window
 		};
 	}
+
+	@Override
+	public ProtoMemento<Section> copy() {
+		return new TrainSection(getSectionUnitCount(), (TrainSectionType) sectionType);
+	}
 }

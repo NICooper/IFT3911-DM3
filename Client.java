@@ -79,6 +79,9 @@ public class Client implements ClientRouteVerification, Observer<ApplicationGett
         if (seat.getCurrentState() instanceof Available){
             seat.nextState();
             this.reservation = new Reservation(seat);
+            seat.setReservation(reservation);
+            System.out.println("Reservation# " + reservation.getReservationNumber());
+            System.out.println("Siege# " + seat.getSeatId());
         }
         else{
             System.out.println("Ce siege est deja reserve");

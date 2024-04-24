@@ -1,6 +1,6 @@
 import java.util.List;
 
-public abstract class Section {
+public abstract class Section implements ProtoMemento<Section> {
 	protected int sectionUnitCount;
 	protected SectionType sectionType;
 
@@ -21,4 +21,9 @@ public abstract class Section {
 
 	public abstract float getPricePercentage();
 
+	@Override
+	public void restore(ProtoMemento<Section> memento) {
+		setSectionUnitCount(((Section) memento).sectionUnitCount);
+		this.sectionType = ((Section) memento).sectionType;
+	}
 }

@@ -36,4 +36,9 @@ public class BoatSection extends Section {
 			default -> 1.0f;
 		};
 	}
+
+	@Override
+	public ProtoMemento<Section> copy() {
+		return new BoatSection(getSectionUnitCount(), (BoatSectionType) sectionType);
+	}
 }

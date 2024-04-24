@@ -1,4 +1,5 @@
 import java.util.Date;
+import java.util.Random;
 
 public class Reservation implements SeatConfirmation, Validation {
 
@@ -9,6 +10,8 @@ public class Reservation implements SeatConfirmation, Validation {
 
 	public Reservation(Seat seat) {
 		this.seat = seat;
+		Random rand = new Random();
+		reservationNumber = Integer.toString(rand.nextInt());
 	}
 
 	public Date getCreationDate() {

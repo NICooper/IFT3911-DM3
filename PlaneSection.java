@@ -70,4 +70,15 @@ public class PlaneSection extends Section {
 			};
 		};
 	}
+
+	@Override
+	public ProtoMemento<Section> copy() {
+		return new PlaneSection(getSectionUnitCount(), (PlaneSectionType) sectionType, repartition);
+	}
+
+	@Override
+	public void restore(ProtoMemento<Section> memento) {
+		super.restore(memento);
+		setRepartition(((PlaneSection)memento).getRepartition());
+	}
 }

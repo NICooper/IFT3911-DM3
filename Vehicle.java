@@ -63,6 +63,11 @@ public abstract class Vehicle implements ProtoMemento<Vehicle> {
 		section.ifPresent(value -> value.setSectionUnitCount(sectionUnitCount));
 	}
 
+	public Section getSection(SectionType sectionType) {
+		var section = sections.stream().filter(s -> s.sectionType == sectionType).findFirst();
+		return section.orElse(null);
+	}
+
 	public List<Seat> generateSeats(float price) {
 		List<Seat> seats = new ArrayList<>();
 		for (var section : sections) {

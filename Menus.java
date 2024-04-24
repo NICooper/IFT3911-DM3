@@ -2,6 +2,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.RandomAccess;
 import java.util.Scanner;
 
 public class Menus {
@@ -67,7 +68,7 @@ public class Menus {
             case 2 -> gererPorts(travelFactory);
             case 3 -> gererRoutes(travelFactory);
             case 4 -> gererEntitesDeVoyage(travelFactory);
-            case 5 -> whatSection(travelFactory);
+            case 5 -> gererSection(travelFactory);
             case 6 -> visitMePlease();
             case 7 -> afficherMenuTypeVoyageAdmin();
             default -> System.out.println("Option invalide !");
@@ -89,15 +90,67 @@ public class Menus {
 
     }
 
-    private void whatSection(TravelFactory travelFactory) {
-        if (travelFactory instanceof AirFactory){
-            createPlaneSection();
-        } else if (travelFactory instanceof SeaFactory) {
-            //////create the section for the boat
+    private void gererSection(TravelFactory travelFactory) {
+        System.out.println("Menu de gestion des sections :\n");
+        if (travelFactory instanceof AirFactory) {
+            System.out.println("1. Ajouter une section\n");
+            System.out.println("2. Supprimer une section\n");
         }
-        else {
-            /////create the section for the train
+        System.out.println("3. Modifier une section\n");
+        System.out.println("4. Revenir");
+
+        int choix = scanner.nextInt();
+        if (travelFactory instanceof AirFactory) {
+            if (choix == 1) {
+                createPlaneSection();
+            }
+            else if (choix == 2) {
+                deleteSection();
+            }
         }
+
+        switch (choix) {
+            case 3 -> modifySection();
+            case 4 -> afficherMenuAdmin(travelFactory);
+            default -> System.out.println("Option invalide !");
+        }
+    }
+
+    private void deleteSection() {
+        scanner.nextLine();
+        System.out.println("De quel avion vous voulez supprimer la section");
+        String vehicleId = scanner.nextLine();
+
+        Vehicle vehicle = findVehicle(vehicleId, application.getVehicles());
+
+        if (vehicle instanceof Airplane) {
+
+            System.out.println("Section Type?\n");
+            System.out.println("1.F\n");
+            System.out.println("2.A\n");
+            System.out.println("3.P\n");
+            System.out.println("4.E\n");
+
+            int st = scanner.nextInt();
+            PlaneSectionType sectionType = null;
+            switch (st) {
+                case 1 -> sectionType = PlaneSectionType.F;
+                case 2 -> sectionType = PlaneSectionType.A;
+                case 3 -> sectionType = PlaneSectionType.P;
+                case 4 -> sectionType = PlaneSectionType.E;
+                default -> {
+                    System.out.println("Erreur, entree non valide");
+                    createPlaneSection();
+                }
+            }
+
+            admin.setCommand(new DeletePlaneSectionCommand((Airplane) vehicle, sectionType));
+            admin.exec();
+        }
+    }
+
+    private void modifySection() {
+        System.out.println("Pas implémenté à temps mais la plupart du code nécessaire existe déjà.");
     }
 
 
@@ -119,6 +172,7 @@ public class Menus {
             System.out.println("3.M\n");
             System.out.println("4.L\n");
 
+            System.out.println("Largeuer des rangees?");
             int rep = scanner.nextInt();
             Repartition repartition = null;
             switch (rep){
@@ -641,6 +695,131 @@ public class Menus {
     }
 
     private void reserveSeat() {
+        System.out.println("Choisissez la route");
+        String id = scanner.nextLine();
+        id = scanner.nextLine();
+
+        var routes = application.getRoutes();
+        String finalId = id;
+        var match = routes.stream().filter(r -> r.id.equals(finalId)).findFirst();
+        if (match.isPresent()) {
+            var route = match.get();
+            Seat seat = null;
+            if (route instanceof Flight) {
+                seat = findPlaneSeat((Flight) route);
+            }
+            else if (route instanceof RailRoad) {
+                seat = findTrainSeat((RailRoad) route);
+            }
+            else if (route instanceof Cruise) {
+                seat = findBoatSeat((Cruise) route);
+            }
+
+            if (seat != null) {
+                client.reserveSiege(seat);
+            }
+        }
+    }
+
+    private Seat findPlaneSeat(Flight route) {
+        System.out.println("Section Type?\n");
+        System.out.println("F\n");
+        System.out.println("A\n");
+        System.out.println("P\n");
+        System.out.println("E\n");
+
+        String  st = scanner.nextLine();
+        PlaneSectionType sectionType = null;
+        switch (st) {
+            case "F" -> sectionType = PlaneSectionType.F;
+            case "A" -> sectionType = PlaneSectionType.A;
+            case "P" -> sectionType = PlaneSectionType.P;
+            case "E" -> sectionType = PlaneSectionType.E;
+            default -> {
+                System.out.println("Erreur, entree non valide");
+                afficherMenuClient();
+            }
+        }
+
+        System.out.println("Seat Preference?\n");
+        System.out.println("W: Window\n");
+        System.out.println("A: Aisle\n");
+        System.out.println("N: Neither\n");
+
+        String sp = scanner.nextLine();
+        ColumnSeatType columnSeatType = null;
+        switch (sp) {
+            case "W" -> columnSeatType = ColumnSeatType.Window;
+            case "A" -> columnSeatType = ColumnSeatType.Aisle;
+            case "N" -> columnSeatType = ColumnSeatType.Neither;
+            default -> {
+                System.out.println("Erreur, entree non valide");
+                afficherMenuClient();
+            }
+        }
+
+        return route.getAvailableSeat(sectionType, columnSeatType);
+    }
+
+    private Seat findTrainSeat(RailRoad route) {
+        System.out.println("Section Type?\n");
+        System.out.println("P\n");
+        System.out.println("E\n");
+
+        String  st = scanner.nextLine();
+        TrainSectionType sectionType = null;
+        switch (st) {
+            case "P" -> sectionType = TrainSectionType.P;
+            case "E" -> sectionType = TrainSectionType.E;
+            default -> {
+                System.out.println("Erreur, entree non valide");
+                afficherMenuClient();
+            }
+        }
+
+        System.out.println("Seat Preference?\n");
+        System.out.println("W: Window\n");
+        System.out.println("A: Aisle\n");
+        System.out.println("N: Neither\n");
+
+        String sp = scanner.nextLine();
+        ColumnSeatType columnSeatType = null;
+        switch (sp) {
+            case "W" -> columnSeatType = ColumnSeatType.Window;
+            case "A" -> columnSeatType = ColumnSeatType.Aisle;
+            case "N" -> columnSeatType = ColumnSeatType.Neither;
+            default -> {
+                System.out.println("Erreur, entree non valide");
+                afficherMenuClient();
+            }
+        }
+
+        return route.getAvailableSeat(sectionType, columnSeatType);
+    }
+
+    private Seat findBoatSeat(Cruise route) {
+        System.out.println("Section Type?\n");
+        System.out.println("I\n");
+        System.out.println("O\n");
+        System.out.println("S\n");
+        System.out.println("F\n");
+        System.out.println("D\n");
+
+        String  st = scanner.nextLine();
+        BoatSectionType sectionType = null;
+        switch (st) {
+            case "I" -> sectionType = BoatSectionType.I;
+            case "O" -> sectionType = BoatSectionType.O;
+            case "S" -> sectionType = BoatSectionType.S;
+            case "F" -> sectionType = BoatSectionType.F;
+            case "D" -> sectionType = BoatSectionType.D;
+            default -> {
+                System.out.println("Erreur, entree non valide");
+                afficherMenuClient();
+            }
+        }
+
+        return route.getAvailableSeat(sectionType);
     }
 
     private void visitMePleaseClient() {

@@ -15,6 +15,10 @@ public abstract class Seat {
 		setCurrentState(new Available());
 	}
 
+	public void setReservation(Reservation reservation) {
+		this.reservation = reservation;
+	}
+
 	public SeatState getCurrentState() {
 		return currentState;
 	}
