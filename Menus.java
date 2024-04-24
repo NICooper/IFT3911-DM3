@@ -58,7 +58,8 @@ public class Menus {
         System.out.println("3. Gérer les routes\n");
         System.out.println("4. Gérer les véhicules\n");
         System.out.println("5. Creer une séction\n");
-        System.out.println("6. Revenir");
+        System.out.println("6. VISITER une route\n");
+        System.out.println("7. Revenir");
 
         int choix = scanner.nextInt();
         switch (choix) {
@@ -67,9 +68,25 @@ public class Menus {
             case 3 -> gererRoutes(travelFactory);
             case 4 -> gererEntitesDeVoyage(travelFactory);
             case 5 -> whatSection(travelFactory);
-            case 6 -> afficherMenuTypeVoyageAdmin();
+            case 6 -> visitMePlease();
+            case 7 -> afficherMenuTypeVoyageAdmin();
             default -> System.out.println("Option invalide !");
         }
+    }
+
+    private void visitMePlease() {
+        String routeId;
+        Route route;
+
+        System.out.println("Quelle route vous voulez visiter?");
+        routeId = scanner.nextLine();
+
+        route = findRoute(routeId, application.getRoutes());
+
+        assert route != null;
+
+        route.accept(admin.getAdminView());
+
     }
 
     private void whatSection(TravelFactory travelFactory) {

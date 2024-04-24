@@ -10,6 +10,14 @@ public class Administrator implements Observer<ApplicationGetters> {
 	private AdminView adminView;
 	//private State state;
 
+	public AdminView getAdminView() {
+		return adminView;
+	}
+
+	public void setAdminView(AdminView adminView) {
+		this.adminView = adminView;
+	}
+
 	public boolean undo() {
 		if (!commandHistory.empty()) {
 			var topCommand = commandHistory.pop();
